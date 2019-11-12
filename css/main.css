@@ -1183,7 +1183,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #040e62;
+  background: #78e5cd;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2455,4 +2455,23 @@ embed {
 .sidebar {
   transition: all 0.4s;
   width: 320px;
+}
+body {
+  background: url("/images/saber.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+.main-inner {
+  border-radius: 10px;
+  min-height: 500px;
+  margin-top: 60px;
+  padding: 60px 60px 60px 60px;
+  background: #fff;
+  opacity: 0.9;
+}
+.footer {
+  font-size: 14px;
+  color: #000;
 }
