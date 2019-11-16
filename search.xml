@@ -3,8 +3,8 @@
   <entry>
     <title>深入理解计算机系统（计算机系统漫游）</title>
     <url>/2019/11/16/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="文本文件和二进制文件"><a href="#文本文件和二进制文件" class="headerlink" title="文本文件和二进制文件"></a>文本文件和二进制文件</h2><p>文本文件是指每个字符用ASCⅡ码表示的文件，这里的ASCⅡ码是0-255的整数，刚好是一个字节；二进制文件就是将文本文件中的每个ASCⅡ码用一个字节的二进制表示。</p><h2 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h2><p>.c文件-&gt;<em>预处理器</em>-&gt;.i文件-&gt;<em>编译器</em>-&gt;.s文件-&gt;<em>汇编器</em>-&gt;.o文件-&gt;<em>链接器</em>-&gt;可执行目标程序。 </p><a id="more"></a>
-
+    <content><![CDATA[<h2 id="文本文件和二进制文件"><a href="#文本文件和二进制文件" class="headerlink" title="文本文件和二进制文件"></a><a id="more"></a>文本文件和二进制文件</h2><p>文本文件是指每个字符用ASCⅡ码表示的文件，这里的ASCⅡ码是0-255的整数，刚好是一个字节；二进制文件就是将文本文件中的每个ASCⅡ码用一个字节的二进制表示。</p>
+<h2 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h2><p>.c文件-&gt;<em>预处理器</em>-&gt;.i文件-&gt;<em>编译器</em>-&gt;.s文件-&gt;<em>汇编器</em>-&gt;.o文件-&gt;<em>链接器</em>-&gt;可执行目标程序。 </p>
 <ul>
 <li>预处理器：将头文件融入.c文件中</li>
 <li>编译器：变成汇编语言</li>
@@ -70,8 +70,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Tree</tag>
         <tag>Leetcode</tag>
+        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -106,8 +106,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>Linked List</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
 </search>
