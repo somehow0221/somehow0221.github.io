@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>深入理解计算机系统（计算机系统漫游）</title>
+    <url>/2019/11/16/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="文本文件和二进制文件"><a href="#文本文件和二进制文件" class="headerlink" title="文本文件和二进制文件"></a>文本文件和二进制文件</h2><p>文本文件是指每个字符用ASCⅡ码表示的文件，这里的ASCⅡ码是0-255的整数，刚好是一个字节；二进制文件就是将文本文件中的每个ASCⅡ码用一个字节的二进制表示。</p><h2 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h2><p>.c文件-&gt;<em>预处理器</em>-&gt;.i文件-&gt;<em>编译器</em>-&gt;.s文件-&gt;<em>汇编器</em>-&gt;.o文件-&gt;<em>链接器</em>-&gt;可执行目标程序。 </p><a id="more"></a>
+
+<ul>
+<li>预处理器：将头文件融入.c文件中</li>
+<li>编译器：变成汇编语言</li>
+<li>汇编器：变成机器语言（由文本文件转为了二进制文件）</li>
+<li>连接器：将预编译好的机器语言结合进来（如printf函数）</li>
+</ul>
+<p>生成好的可执行目标程序即为处理器可直接解释的二进制文件，存储在内存当中。</p>
+<h2 id="处理器读取解释指令"><a href="#处理器读取解释指令" class="headerlink" title="处理器读取解释指令"></a>处理器读取解释指令</h2><h3 id="计算机硬件组成"><a href="#计算机硬件组成" class="headerlink" title="计算机硬件组成"></a>计算机硬件组成</h3><p>可以看到有三条总线分别是：I/O总线、内存总线、系统总线。总线的传输单位是32位或64位。也就是说计算机分为三大部分：输入输出设备（键鼠\屏幕\硬盘\网络）、内存、处理器。</p>
+<h3 id="处理器"><a href="#处理器" class="headerlink" title="处理器"></a>处理器</h3><p>处理器处理过程实际很复杂，简单进行抽象称之为“指令集架构”。处理器由三部分构成：程序计数器(PC)、寄存器文件和算数逻辑单元(ALU)。程序计数器实质是一个字大小的寄存器，每次指向下一步指令所在的内存地址；寄存器文件通过该地址读取数据执行指令，然后更新PC；执行指令用到的逻辑运算借由ALU实现。<br><img src="../images/IMG_20191116_130730.jpg" alt="IMG_20191116_130730"></p>
+<h3 id="高速缓存"><a href="#高速缓存" class="headerlink" title="高速缓存"></a>高速缓存</h3><p>系统从内存中读取指令又将执行结果输出到屏幕上，这个过程存在大量的复制操作。又由于不同硬件设备的读取效率差距很大，因此位保证程序执行过程的顺畅，需要借助高速缓存。</p>
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p>在上述执行程序的过程中，很多过程实际是借由操作系统完成的，操作系统是软件和硬件之间的桥梁。主要起到两个作用，一是防止硬件被失控的应用程序滥用；二是帮助应用程序控制硬件设备，操作系统通过两个抽象的概念实现这两个功能。</p>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p>进程是操作系统对运行一个程序的一种抽象，系统可同时运行多个 进程。但这实际是一种假象，是通过在不同进程之间切换达到的（单处理器）。</p>
+<p>对多处理器分为多核和超线程两方面实现。多核即多个CPU集成，能同时执行多个进程；超线程技术是指缩短了处理器在不同进程之间切换的频率。多处理器的出现一方面减少了处理多进程时并发的需要（多核），另一方面对多线程编写的程序来说可以被执行的更快（多核和超线程）。</p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>线程是组成进程的执行单元。</p>
+<h3 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h3><p>系统为每个进程提供的虚拟内存控件。由小地址到大地址依次是：只读的代码和数据、堆、共享库、栈、内核虚拟内存（为系统内存保留的）。</p>
+<h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><p>I/O设备可以抽象成文件。</p>
+]]></content>
+      <categories>
+        <category>Basic knowledge</category>
+      </categories>
+      <tags>
+        <tag>Basic knowledge</tag>
+        <tag>深入理解计算机系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Leetcode刷题笔记（树）</title>
     <url>/2019/11/12/Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%EF%BC%88%E6%A0%91%EF%BC%89/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>数据结构中有很多树的结构，其中包括二叉树、二叉搜索树、2-3树、红黑树等。<a id="more"></a></p>
@@ -40,8 +70,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>Tree</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -76,8 +106,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Linked List</tag>
         <tag>Leetcode</tag>
+        <tag>Linked List</tag>
       </tags>
   </entry>
 </search>
