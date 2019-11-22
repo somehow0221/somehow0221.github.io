@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>颜色合成调研</title>
+    <url>/2019/11/22/%E9%A2%9C%E8%89%B2%E5%90%88%E6%88%90%E8%B0%83%E7%A0%94/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Company</category>
+      </categories>
+      <tags>
+        <tag>Color Comporsite</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>深入理解计算机系统（计算机系统漫游）</title>
     <url>/2019/11/16/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8%EF%BC%89/</url>
     <content><![CDATA[<h2 id="文本文件和二进制文件"><a href="#文本文件和二进制文件" class="headerlink" title="文本文件和二进制文件"></a>文本文件和二进制文件</h2><p>文本文件是指每个字符用ASCⅡ码表示的文件，这里的ASCⅡ码是0-255的整数，刚好是一个字节；二进制文件就是将文本文件中的每个ASCⅡ码用一个字节的二进制表示。<a id="more"></a></p>
@@ -85,8 +96,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>Tree</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -121,8 +132,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Linked List</tag>
         <tag>Leetcode</tag>
+        <tag>Linked List</tag>
       </tags>
   </entry>
 </search>
