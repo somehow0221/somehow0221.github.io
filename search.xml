@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Qt学习（路径）</title>
+    <url>/2019/12/09/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88%E8%B7%AF%E5%BE%84%EF%BC%89/</url>
+    <content><![CDATA[<p>一个程序所带有的资源文件、数据或配置文件一般放在三个地方——分别是用户中创建的文件夹、注册表和.exe文件的目录下。<a id="more"></a>在颜色合成项目中编辑染料库时，需要知道染料库文件的路径才能打开染料库文件。原采用的方法是利用绝对路径，现修改为相对.exe文件的路径。</p>
+<h3 id="绝对路径"><a href="#绝对路径" class="headerlink" title="绝对路径"></a>绝对路径</h3><p>Qt中绝对路径可以用双斜杠表示。</p>
+<h3 id="相对路径"><a href="#相对路径" class="headerlink" title="相对路径"></a>相对路径</h3><p>Qt中相对路径表示一般是将文件放在.exe文件目录下，获得可执行文件目录后再加上文件名就可以了。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">test</span><span class="params">(QString fileName)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">string</span> path = QCoreApplication::applicationDirPath().toStdString();</span><br><span class="line">	path = path + <span class="string">'/'</span> + fileName.toStdString();</span><br><span class="line">	fstream readFile.<span class="built_in">open</span>(path, ios::in);</span><br><span class="line">	<span class="keyword">if</span>(!readFile.is_open())</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外还有一些其他函数，例如获取可执行文件绝对路径。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">string</span> path = QCoreApplication::applicationFilePath().toStdString();</span><br></pre></td></tr></table></figure>
+<p>获取当前工作目录的绝对路径。这个还有待测试一下确定当前工作目录是什么。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">string</span> path = QDir::currentPath().toStdString();</span><br></pre></td></tr></table></figure>
+<h3 id="资源文件"><a href="#资源文件" class="headerlink" title="资源文件"></a>资源文件</h3><p>Qt还可以添加资源文件，资源文件是以机器语言的形式存储到可执行文件中的。<br>例如<em>:/icon/png/delete_hover.png</em>。<br><em>:/</em>表示对qrc资源文件的引用。</p>
+]]></content>
+      <categories>
+        <category>Company</category>
+      </categories>
+      <tags>
+        <tag>Qt</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>颜色合成调研</title>
     <url>/2019/11/22/%E9%A2%9C%E8%89%B2%E5%90%88%E6%88%90%E8%B0%83%E7%A0%94%EF%BC%88%E8%BD%AF%E4%BB%B6%EF%BC%89/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文将按颜色合成的子功能对ToupView\ImagePro10\ImageProPlus6.0三款软件进行比较分析，并阐述我们实现对该子功能的实现情况。<a id="more"></a>由于ImageProPlus6.0与ToupView的颜色合成程序几乎一致，大多数比较的是ToupView与ImagePro10的差异。</p>
@@ -153,8 +173,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>Tree</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -189,8 +209,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Linked List</tag>
         <tag>Leetcode</tag>
+        <tag>Linked List</tag>
       </tags>
   </entry>
 </search>
