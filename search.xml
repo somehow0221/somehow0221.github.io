@@ -3,7 +3,7 @@
   <entry>
     <title>Qt学习（坐标）</title>
     <url>/2019/12/30/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9D%90%E6%A0%87%EF%BC%89/</url>
-    <content><![CDATA[<h3 id="坐标转换函数"><a href="#坐标转换函数" class="headerlink" title="坐标转换函数"></a>坐标转换函数</h3><p>坐标转换的原则是，在转换后的坐标系上按新坐标显示的话，显示位置不变</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">QPoint QMouseEvent::pos();						 <span class="comment">//返回相对子窗口的坐标</span></span><br><span class="line">QPoint QMouseEvent::globalPos();				 <span class="comment">//返回相对屏幕的坐标</span></span><br><span class="line">QPoint QCursor::pos(<span class="keyword">const</span> QScreen* screen);		 <span class="comment">//返回相对屏幕的坐标</span></span><br><span class="line"></span><br><span class="line">QPoint QWidget::pos();							 <span class="comment">//获得子控件在父控件中的位置</span></span><br><span class="line">QPoint QWidget::mapToParent(<span class="keyword">const</span> QPoint&amp; pos);	 <span class="comment">//子窗口坐标转换为父窗口坐标</span></span><br><span class="line">QPoint QWidget::mapFromParent(<span class="keyword">const</span> QPoint&amp; pos);<span class="comment">//父窗口坐标转换为子窗口坐标</span></span><br><span class="line">QPoint QWidget::mapToGlobal(<span class="keyword">const</span> QPoint&amp; pos);	 <span class="comment">//窗口坐标转换为屏幕坐标</span></span><br><span class="line">QPoint QWidget::mapFromGlobal(<span class="keyword">const</span> QPoint&amp; pos);<span class="comment">//屏幕坐标转换为窗口坐标</span></span><br><span class="line">QPoint QWidget::mapTo(<span class="keyword">const</span> QWidget * parent, <span class="keyword">const</span> QPoint &amp;pos) <span class="keyword">const</span>;</span><br><span class="line"><span class="comment">//转换到指定的窗口</span></span><br></pre></td></tr></table></figure>]]></content>
+    <content><![CDATA[<a id="more"></a><h3 id="坐标转换函数"><a href="#坐标转换函数" class="headerlink" title="坐标转换函数"></a>坐标转换函数</h3><p>坐标转换的原则是，在转换后的坐标系上按新坐标显示的话，显示位置不变</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回相对子窗口的坐标</span></span><br><span class="line">QPoint QMouseEvent::pos();</span><br><span class="line"><span class="comment">//返回相对屏幕的坐标</span></span><br><span class="line">QPoint QMouseEvent::globalPos();</span><br><span class="line"><span class="comment">//返回相对屏幕的坐标</span></span><br><span class="line">QPoint QCursor::pos(<span class="keyword">const</span> QScreen* screen);</span><br><span class="line"><span class="comment">//获得子控件在父控件中的位置</span></span><br><span class="line">QPoint QWidget::pos();</span><br><span class="line"><span class="comment">//子窗口坐标转换为父窗口坐标</span></span><br><span class="line">QPoint QWidget::mapToParent(<span class="keyword">const</span> QPoint&amp; pos);</span><br><span class="line"><span class="comment">//父窗口坐标转换为子窗口坐标</span></span><br><span class="line">QPoint QWidget::mapFromParent(<span class="keyword">const</span> QPoint&amp; pos);</span><br><span class="line"><span class="comment">//窗口坐标转换为屏幕坐标</span></span><br><span class="line">QPoint QWidget::mapToGlobal(<span class="keyword">const</span> QPoint&amp; pos);</span><br><span class="line"><span class="comment">//屏幕坐标转换为窗口坐标</span></span><br><span class="line">QPoint QWidget::mapFromGlobal(<span class="keyword">const</span> QPoint&amp; pos);</span><br><span class="line"><span class="comment">//转换到指定的窗口</span></span><br><span class="line">QPoint QWidget::mapTo(<span class="keyword">const</span> QWidget * parent, <span class="keyword">const</span> QPoint &amp;pos) <span class="keyword">const</span>;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Qt</category>
       </categories>
@@ -14,7 +14,7 @@
   <entry>
     <title>Qt学习（事件）</title>
     <url>/2019/12/30/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8B%E4%BB%B6%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="窗口最大化、最小化事件"><a href="#窗口最大化、最小化事件" class="headerlink" title="窗口最大化、最小化事件"></a>窗口最大化、最小化事件</h2><p>主要靠changeEvent事件函数和event-&gt;type来判断。</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainWindow</span> :</span> <span class="keyword">public</span> QMainWindow</span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">changeEvent</span><span class="params">(QEvent * event)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> MainWindow::changeEvent(QEvent *event)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(event-&gt;type() != QEvent::WindowStateChange)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <content><![CDATA[<a id="more"></a><h3 id="窗口最大化、最小化事件"><a href="#窗口最大化、最小化事件" class="headerlink" title="窗口最大化、最小化事件"></a>窗口最大化、最小化事件</h3><p>主要靠changeEvent事件函数和event-&gt;type来判断。</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainWindow</span> :</span> <span class="keyword">public</span> QMainWindow</span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">changeEvent</span><span class="params">(QEvent * event)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> MainWindow::changeEvent(QEvent *event)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(event-&gt;type() != QEvent::WindowStateChange)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Qt</category>
       </categories>
@@ -36,9 +36,10 @@
   <entry>
     <title>Qt学习（路径）</title>
     <url>/2019/12/09/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88%E8%B7%AF%E5%BE%84%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h2><p>一个程序所带有的资源文件、数据或配置文件一般放在三个地方——分别是用户中创建的文件夹、注册表和.exe文件的目录下。<a id="more"></a>在颜色合成项目中编辑染料库时，需要知道染料库文件的路径才能打开染料库文件。原采用的方法是利用绝对路径，现修改为相对.exe文件的路径。</p>
-<h3 id="绝对路径"><a href="#绝对路径" class="headerlink" title="绝对路径"></a>绝对路径</h3><p>Qt中绝对路径可以用双斜杠表示。</p>
-<h3 id="相对路径"><a href="#相对路径" class="headerlink" title="相对路径"></a>相对路径</h3><p>Qt中相对路径表示一般是将文件放在.exe文件目录下，获得可执行文件目录后再加上文件名就可以了。</p>
+    <content><![CDATA[<a id="more"></a><h2 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h2><p>一个程序所带有的资源文件、数据或配置文件一般放在三个地方——分别是用户中创建的文件夹、注册表和.exe文件的目录下。<!--more-->在颜色合成项目中编辑染料库时，需要知道染料库文件的路径才能打开染料库文件。原采用的方法是利用绝对路径，现修改为相对.exe文件的路径。</p><h3 id="绝对路径"><a href="#绝对路径" class="headerlink" title="绝对路径"></a>绝对路径</h3><p>Qt中绝对路径可以用双斜杠表示。</p><h3 id="相对路径"><a href="#相对路径" class="headerlink" title="相对路径"></a>相对路径</h3><a id="more"></a>
+
+
+<p>Qt中相对路径表示一般是将文件放在.exe文件目录下，获得可执行文件目录后再加上文件名就可以了。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">test</span><span class="params">(QString fileName)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">string</span> path = QCoreApplication::applicationDirPath().toStdString();</span><br><span class="line">	path = path + <span class="string">'/'</span> + fileName.toStdString();</span><br><span class="line">	fstream readFile.<span class="built_in">open</span>(path, ios::in);</span><br><span class="line">	<span class="keyword">if</span>(!readFile.is_open())</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>另外还有一些其他函数，例如获取可执行文件绝对路径。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">string</span> path = QCoreApplication::applicationFilePath().toStdString();</span><br></pre></td></tr></table></figure>
@@ -225,8 +226,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Tree</tag>
         <tag>Leetcode</tag>
+        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -261,8 +262,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>Linked List</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
 </search>
