@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>数据结构（STL）</title>
+    <url>/2019/12/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88STL%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="set"><a href="#set" class="headerlink" title="set"></a>set</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>set的值就是key，所有不允许有重复的值，且值按顺序排列。</p><h2 id="multiset"><a href="#multiset" class="headerlink" title="multiset"></a>multiset</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>与set基本一致，不同是允许重复值。</p><h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><h3 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h3><p>map是键值对，允许重复。</p>]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构 STL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Qt学习（坐标）</title>
     <url>/2019/12/30/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9D%90%E6%A0%87%EF%BC%89/</url>
     <content><![CDATA[<h3 id="坐标转换函数"><a href="#坐标转换函数" class="headerlink" title="坐标转换函数"></a>坐标转换函数</h3><p>坐标转换的原则是，在转换后的坐标系上按新坐标显示的话，显示位置不变</p>
@@ -229,8 +240,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Tree</tag>
         <tag>Leetcode</tag>
+        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -265,8 +276,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>Linked List</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
 </search>
