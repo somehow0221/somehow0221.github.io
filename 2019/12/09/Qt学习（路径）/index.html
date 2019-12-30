@@ -53,15 +53,15 @@
   };
 </script>
 
-  <meta name="description" content="一个程序所带有的资源文件、数据或配置文件一般放在三个地方——分别是用户中创建的文件夹、注册表和.exe文件的目录下。">
+  <meta name="description" content="路径一个程序所带有的资源文件、数据或配置文件一般放在三个地方——分别是用户中创建的文件夹、注册表和.exe文件的目录下。">
 <meta name="keywords" content="Qt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Qt学习（路径）">
 <meta property="og:url" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2019&#x2F;12&#x2F;09&#x2F;Qt%E5%AD%A6%E4%B9%A0%EF%BC%88%E8%B7%AF%E5%BE%84%EF%BC%89&#x2F;index.html">
 <meta property="og:site_name" content="Somehow&#39;s blog">
-<meta property="og:description" content="一个程序所带有的资源文件、数据或配置文件一般放在三个地方——分别是用户中创建的文件夹、注册表和.exe文件的目录下。">
+<meta property="og:description" content="路径一个程序所带有的资源文件、数据或配置文件一般放在三个地方——分别是用户中创建的文件夹、注册表和.exe文件的目录下。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-09T08:46:09.351Z">
+<meta property="og:updated_time" content="2019-12-12T01:37:00.682Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://somehow0221.github.io/2019/12/09/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88%E8%B7%AF%E5%BE%84%EF%BC%89/">
@@ -234,10 +234,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-12-09 16:14:14 / 修改时间：16:46:09" itemprop="dateCreated datePublished" datetime="2019-12-09T16:14:14+08:00">2019-12-09</time>
+              <time title="创建时间：2019-12-09 16:14:14" itemprop="dateCreated datePublished" datetime="2019-12-09T16:14:14+08:00">2019-12-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-12 09:37:00" itemprop="dateModified" datetime="2019-12-12T09:37:00+08:00">2019-12-12</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -277,7 +283,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>683</span>
+              <span>688</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -296,7 +302,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>一个程序所带有的资源文件、数据或配置文件一般放在三个地方——分别是用户中创建的文件夹、注册表和.exe文件的目录下。<a id="more"></a>在颜色合成项目中编辑染料库时，需要知道染料库文件的路径才能打开染料库文件。原采用的方法是利用绝对路径，现修改为相对.exe文件的路径。</p>
+        <h2 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h2><p>一个程序所带有的资源文件、数据或配置文件一般放在三个地方——分别是用户中创建的文件夹、注册表和.exe文件的目录下。<a id="more"></a>在颜色合成项目中编辑染料库时，需要知道染料库文件的路径才能打开染料库文件。原采用的方法是利用绝对路径，现修改为相对.exe文件的路径。</p>
 <h3 id="绝对路径"><a href="#绝对路径" class="headerlink" title="绝对路径"></a>绝对路径</h3><p>Qt中绝对路径可以用双斜杠表示。</p>
 <h3 id="相对路径"><a href="#相对路径" class="headerlink" title="相对路径"></a>相对路径</h3><p>Qt中相对路径表示一般是将文件放在.exe文件目录下，获得可执行文件目录后再加上文件名就可以了。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">test</span><span class="params">(QString fileName)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">string</span> path = QCoreApplication::applicationDirPath().toStdString();</span><br><span class="line">	path = path + <span class="string">'/'</span> + fileName.toStdString();</span><br><span class="line">	fstream readFile.<span class="built_in">open</span>(path, ios::in);</span><br><span class="line">	<span class="keyword">if</span>(!readFile.is_open())</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -305,7 +311,7 @@
 <p>获取当前工作目录的绝对路径。这个还有待测试一下确定当前工作目录是什么。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> path = QDir::currentPath().toStdString();</span><br></pre></td></tr></table></figure>
 <h3 id="资源文件"><a href="#资源文件" class="headerlink" title="资源文件"></a>资源文件</h3><p>Qt还可以添加资源文件，资源文件是以机器语言的形式存储到可执行文件中的。<br>例如<em>:/icon/png/delete_hover.png</em>。<br><em>:/</em>表示对qrc资源文件的引用。</p>
-
+<h2 id="滑动条"><a href="#滑动条" class="headerlink" title="滑动条"></a>滑动条</h2>
     </div>
 
     
@@ -340,7 +346,7 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/22/%E9%A2%9C%E8%89%B2%E5%90%88%E6%88%90%E8%B0%83%E7%A0%94%EF%BC%88%E8%BD%AF%E4%BB%B6%EF%BC%89/" rel="next" title="颜色合成调研">
+                <a href="/2019/11/22/%E9%A2%9C%E8%89%B2%E5%90%88%E6%88%90%E8%B0%83%E7%A0%94/" rel="next" title="颜色合成调研">
                   <i class="fa fa-chevron-left"></i> 颜色合成调研
                 </a>
             </div>
@@ -348,6 +354,9 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+                <a href="/2019/12/30/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88model-view%EF%BC%89/" rel="prev" title="Qt学习（model/view）">
+                  Qt学习（model/view） <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
       </footer>
@@ -393,7 +402,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#绝对路径"><span class="nav-number">1.</span> <span class="nav-text">绝对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相对路径"><span class="nav-number">2.</span> <span class="nav-text">相对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源文件"><span class="nav-number">3.</span> <span class="nav-text">资源文件</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#路径"><span class="nav-number">1.</span> <span class="nav-text">路径</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#绝对路径"><span class="nav-number">1.1.</span> <span class="nav-text">绝对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相对路径"><span class="nav-number">1.2.</span> <span class="nav-text">相对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源文件"><span class="nav-number">1.3.</span> <span class="nav-text">资源文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#滑动条"><span class="nav-number">2.</span> <span class="nav-text">滑动条</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -409,7 +418,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -467,13 +476,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">21k</span>
+    <span title="站点总字数">23k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">36 分钟</span>
+    <span title="站点阅读时长">38 分钟</span>
 </div>
 
         
