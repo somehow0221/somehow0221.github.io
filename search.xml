@@ -60,7 +60,7 @@
   <entry>
     <title>颜色合成调研</title>
     <url>/2019/11/22/%E9%A2%9C%E8%89%B2%E5%90%88%E6%88%90%E8%B0%83%E7%A0%94/</url>
-    <content><![CDATA[<h1 id="背景信息"><a href="#背景信息" class="headerlink" title="背景信息"></a>背景信息</h1><h2 id="荧光显微镜"><a href="#荧光显微镜" class="headerlink" title="荧光显微镜"></a>荧光显微镜</h2><p>荧光显微镜是指用荧光来产生一个图像的任何显微镜。对光源要求使用近乎单色光照明。<br>一个样本被两个荧光团标记，通过设置激发波片可以切换两个荧光团的激发波长。每个荧光团发射波长也是确定的，可以通过确定的波片滤出来。滤出来的两幅图像就是这个样本不同结构的图像，这时候往往要染色，因为直接叠加的话就和传统光学显微镜一样，灰度域难以分辨，荧光没意义了。因此要染色，不是真彩色而是赋予这个结构这个颜色，也往往不用对应发射波长的颜色，因为没必要，发射波长的颜色也不是它真的颜色，就算是真的颜色也可以改，我们要的是”清晰“。那么得到了几个灰度图像了，怎么染色，怎么合成。</p>
+    <content><![CDATA[<h1 id="背景信息"><a href="#背景信息" class="headerlink" title="背景信息"></a>背景信息</h1><h2 id="荧光显微镜"><a href="#荧光显微镜" class="headerlink" title="荧光显微镜"></a>荧光显微镜</h2><p>荧光显微镜是指用荧光来产生一个图像的任何显微镜。对光源要求使用近乎单色光照明。<br>一个样本被两个荧光团标记，通过设置激发波片可以切换两个荧光团的激发波长。<a id="more"></a>每个荧光团发射波长也是确定的，可以通过确定的波片滤出来。滤出来的两幅图像就是这个样本不同结构的图像，这时候往往要染色，因为直接叠加的话就和传统光学显微镜一样，灰度域难以分辨，荧光没意义了。因此要染色，不是真彩色而是赋予这个结构这个颜色，也往往不用对应发射波长的颜色，因为没必要，发射波长的颜色也不是它真的颜色，就算是真的颜色也可以改，我们要的是”清晰“。那么得到了几个灰度图像了，怎么染色，怎么合成。</p>
 <p>染色是为了从颜色上区别。但是融合却要根据初始的图像信息取融合，这里不用RGB空间，用HIS空间或者其他是不是更好，融合时比较的原始的I图像，但是实际加上的像素是彩色的。RGB空间有没有问题我不知道…难点出来了，怎么样取颜色合成？？？？？</p>
 <h2 id="落射式荧光显微镜"><a href="#落射式荧光显微镜" class="headerlink" title="落射式荧光显微镜"></a>落射式荧光显微镜</h2><img src="/2019/11/22/%E9%A2%9C%E8%89%B2%E5%90%88%E6%88%90%E8%B0%83%E7%A0%94/落射式.png" alt="落射式.png" style="zoom:50%;">
 ## 共聚焦荧光显微镜
@@ -79,7 +79,7 @@
 <h2 id="电子内窥镜实时图像处理系统-2019"><a href="#电子内窥镜实时图像处理系统-2019" class="headerlink" title="电子内窥镜实时图像处理系统[2019]"></a>电子内窥镜实时图像处理系统[2019]</h2><p>电子内窥镜针对荧光分子程序有两种方法。双传感器方案和单传感器方案，双传感器方案优势是同时获得两个波段的图像，但是缺点是图像有位置的偏差，这点对于图像融合很有影响。作者采用的是单传感器分时采集不同波段图像的方法。尽管损失了部分的时间和信息量，但目前的输出帧率足够应付。</p>
 <p>文章在国内外研究现状中写到荧光显微镜系统有单传感器和多传感器两种，两种都有研究。<br>本文使用的是色彩空间融合算法，色彩空间融合在处理速度和内存占用上优于多分辨率融合。</p>
 <h2 id="基于不同色彩空间融合的快速图像增强算法-2014"><a href="#基于不同色彩空间融合的快速图像增强算法-2014" class="headerlink" title="基于不同色彩空间融合的快速图像增强算法[2014]"></a>基于不同色彩空间融合的快速图像增强算法[2014]</h2><p>Retinex算法存在色彩失真、噪声放大和光晕伪影的问题。<br>本文提出了一种改进算法，</p>
-<h1 id="软件调研"><a href="#软件调研" class="headerlink" title="软件调研"></a>软件调研</h1><p>本文将按颜色合成的子功能对ToupView\ImagePro10\ImageProPlus6.0三款软件进行比较分析，并阐述我们实现对该子功能的实现情况。<a id="more"></a>由于ImageProPlus6.0与ToupView的颜色合成程序几乎一致，大多数比较的是ToupView与ImagePro10的差异。</p>
+<h1 id="软件调研"><a href="#软件调研" class="headerlink" title="软件调研"></a>软件调研</h1><p>本文将按颜色合成的子功能对ToupView\ImagePro10\ImageProPlus6.0三款软件进行比较分析，并阐述我们实现对该子功能的实现情况。<!--more-->由于ImageProPlus6.0与ToupView的颜色合成程序几乎一致，大多数比较的是ToupView与ImagePro10的差异。</p>
 <p>我将颜色合成功能划分为以下子功能：添加图片、删除图片、隐藏图片、染色、编辑染料库、位置调节、直方图拉伸、图像参数调节（亮度、对比度、gamma值）、设定背景图片、重置程序。</p>
 <h2 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h2><h3 id="添加图片方式"><a href="#添加图片方式" class="headerlink" title="添加图片方式"></a>添加图片方式</h3><p>三款软件添加图片功能如下图所示。比较得到ImageProPlus6.0和ToupView采用<strong>切换QCombobox+QButton</strong>的方法添加，而ImagePro10采用<strong>切换QCombobox</strong>方式添加，并且具有<strong>Add All</strong>的功能。<br><img src="/2019/11/22/%E9%A2%9C%E8%89%B2%E5%90%88%E6%88%90%E8%B0%83%E7%A0%94/ImageProPlus6.0主窗口.png" alt="ImageProPlus6.0主窗口.png" style="zoom: 50%;"><br><img src="/2019/11/22/%E9%A2%9C%E8%89%B2%E5%90%88%E6%88%90%E8%B0%83%E7%A0%94/ToupView主窗口.png" alt="ToupView主窗口.png" style="zoom: 50%;"><br><img src="/2019/11/22/%E9%A2%9C%E8%89%B2%E5%90%88%E6%88%90%E8%B0%83%E7%A0%94/ImagePro10主窗口.jpg" alt="ImagePro10主窗口.jpg" style="zoom:50%;"></p>
 <h3 id="添加图片染色"><a href="#添加图片染色" class="headerlink" title="添加图片染色"></a>添加图片染色</h3><p>另外需要注意的是新加入图片的染料设定问题。ToupView和ImageProPlus6.0采用的是加入前弹出染色窗口供用户决定染料，而ImagePro10却直接按红绿蓝青黄品的顺序对图片进行<strong>自动染色</strong>。<br><img src="/2019/11/22/%E9%A2%9C%E8%89%B2%E5%90%88%E6%88%90%E8%B0%83%E7%A0%94/ImageProPlus6.0染色窗口.png" alt="ImageProPlus6.0染色窗口" style="zoom: 67%;"><br><img src="/2019/11/22/%E9%A2%9C%E8%89%B2%E5%90%88%E6%88%90%E8%B0%83%E7%A0%94/ToupView染色窗口.png" alt="ToupView染色窗口" style="zoom:50%;"> </p>
@@ -229,8 +229,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>Tree</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -265,8 +265,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Linked List</tag>
         <tag>Leetcode</tag>
+        <tag>Linked List</tag>
       </tags>
   </entry>
 </search>
