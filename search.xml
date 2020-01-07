@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Qt学习（sender）</title>
+    <url>/2020/01/07/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88sender%EF%BC%89/</url>
+    <content><![CDATA[<p>帮助文档定义：<br><img src="/2020/01/07/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88sender%EF%BC%89/%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3.PNG" alt="帮助文档">  </p><p>返回一个QObject类型的指针指向发送信号的QObject对象或其子类对象，该指针只在调用相应的slot函数时有效。</p><ul>
+<li>当connect连接被断开无效</li>
+<li>发送放被销毁无效</li>
+<li>不同线程之间的connect无效</li>
+</ul><p>类型转换<br>由于返回的是QObject指针，若要使用对应的子类接口的话，需要利用<strong>qobject_cast&lt;&gt;()</strong>进行类型转换。  </p><a id="more"></a>
+
+
+
+<p>qobject_cast<a>(A)，A是一个QObject类型的对象，可以将其转为QObject的子类对象，与C++中的dynamic_cast&lt;&gt;()类似。</a></p>
+]]></content>
+      <categories>
+        <category>Qt</category>
+      </categories>
+      <tags>
+        <tag>Qt</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>数据结构（STL）</title>
     <url>/2019/12/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88STL%EF%BC%89/</url>
     <content><![CDATA[<h2 id="set"><a href="#set" class="headerlink" title="set"></a>set</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>set的值就是key，所有不允许有重复的值，且值按顺序排列。</p><h2 id="multiset"><a href="#multiset" class="headerlink" title="multiset"></a>multiset</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>与set基本一致，不同是允许重复值。</p><h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><h3 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h3><p>map是键值对，允许重复。</p>]]></content>
@@ -240,8 +260,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Tree</tag>
         <tag>Leetcode</tag>
+        <tag>Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -276,8 +296,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>Linked List</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
 </search>
