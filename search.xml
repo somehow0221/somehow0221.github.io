@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>C++学习（const）</title>
+    <url>/2020/01/07/C-%E5%AD%A6%E4%B9%A0%EF%BC%88const%EF%BC%89/</url>
+    <content><![CDATA[<h4 id="const修饰变量"><a href="#const修饰变量" class="headerlink" title="const修饰变量"></a>const修饰变量</h4><p>const修饰变量，表示不可更改。可用于定义常量，还可以用#define定义常量，但是前者有很多优点：</p><ul>
+<li>编译器处理方式不同<ul>
+<li>define是在预处理阶段展开（预处理器）。</li>
+<li>const是编译运行阶段使用（编译器）。</li>
+<li>代码-&gt;预处理器-&gt;编译器-&gt;汇编器-&gt;连接器-&gt;可执行文件。</li>
+</ul>
+</li>
+<li>类型和安全检查不同<ul>
+<li>define没有类型，不做安全检查。</li>
+<li>const相反。</li>
+</ul>
+</li>
+<li>存储方式不同<ul>
+<li>define不分配内存，哪里使用在哪里展开，内存中不存储它。</li>
+<li>const常量在内存中只分配一次，节省内存。</li>
+</ul>
+</li>
+<li>作用域不同<ul>
+<li>define是全局的</li>
+<li>const修饰成员变量，需要注意的是：<ul>
+<li>在类内不能初始化，因为头文件中类的定义只是一个声明，无法真正分配空间。</li>
+<li>const定义后，就不能再赋值了</li>
+<li>解决方案是，（1）用初始化列表初始化；（2）将变量同时声明为static类型。<h4 id="const修饰指针变量"><a href="#const修饰指针变量" class="headerlink" title="const修饰指针变量"></a>const修饰指针变量</h4>有三种情况：</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>修饰指针指向的内容，指针内容不可变，指针指向可变。<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>* p = <span class="number">27</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">27</span>;</span><br><span class="line">p = &amp;b;<span class="comment">//is it corrrect?</span></span><br><span class="line">*p = <span class="number">7</span>;<span class="comment">//wrong</span></span><br></pre></td></tr></table></figure></li>
+<li>修饰指针，指针不能指向其他地址，但内容可变。<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>* <span class="keyword">const</span> p = <span class="number">27</span>;</span><br><span class="line">*p = <span class="number">7</span>;<span class="comment">//correct</span></span><br><span class="line"><span class="keyword">int</span> b = <span class="number">7</span>;</span><br><span class="line">p = &amp;b;<span class="comment">//wrong</span></span><br></pre></td></tr></table></figure></li>
+<li>两者皆有之。<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">27</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>* <span class="keyword">const</span> p = &amp;a;</span><br></pre></td></tr></table></figure>
+<h4 id="修饰参数"><a href="#修饰参数" class="headerlink" title="修饰参数"></a>修饰参数</h4>通常传递参数利用传值方式传递，函数内会构造一个参数副本。但是遇到数据量较大或者是自定义类型的时候，可以用传址方式传递（指针和引用），但是存在参数在函数内被改变的风险，因此需要用const修饰。<h4 id="修饰返回值"><a href="#修饰返回值" class="headerlink" title="修饰返回值"></a>修饰返回值</h4>返回值传递的方式有很多，包括按值返回、按引用返回、按指针返回…<br>当按指针和引用返回时，可以用const修饰以防止在函数外面被修改。<h4 id="修饰函数"><a href="#修饰函数" class="headerlink" title="修饰函数"></a>修饰函数</h4>非静态成员函数后可以用const修饰，表示隐含传入成员函数的this指针是const指针（应该是指向的内容是const的吧？），修改它所在的类的成员的操作是不允许的，唯一例外是mutable修饰的成员。加了const修饰的成员函数可以被非const对象和const对象调用，但不加const的成员函数，只能被非const对象调用。</li>
+</ul>]]></content>
+      <categories>
+        <category>基础知识</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Qt学习（sender）</title>
     <url>/2020/01/07/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88sender%EF%BC%89/</url>
     <content><![CDATA[<p>帮助文档定义：<br><img src="/2020/01/07/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88sender%EF%BC%89/%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3.PNG" alt="帮助文档">  </p><p>返回一个QObject类型的指针指向发送信号的QObject对象或其子类对象，该指针只在调用相应的slot函数时有效。</p><ul>
@@ -12,6 +54,9 @@
 
 
 <p>qobject_cast<a>(A)，A是一个QObject类型的对象，可以将其转为QObject的子类对象，与C++中的dynamic_cast&lt;&gt;()类似。</a></p>
+<p>举例</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> TpColorCompositionPanel::onBtnEnableImage(<span class="keyword">bool</span> isEnable)</span><br><span class="line">&#123;</span><br><span class="line">    QCheckBox* itm = qobject_cast&lt;QCheckBox*&gt;(sender());</span><br><span class="line">    QRect <span class="built_in">rect</span> = itm-&gt;parentWidget()-&gt;frameGeometry();</span><br><span class="line">    QModelIndex modelIndex = m_table-&gt;indexAt(QPoint(<span class="built_in">rect</span>.center()));</span><br><span class="line">    m_list_table[modelIndex.row()].enable = isEnable;</span><br><span class="line">    calculateBackgroundImage();</span><br><span class="line">    dyeAndMixImage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>Qt</category>
@@ -260,8 +305,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Leetcode</tag>
         <tag>Tree</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -296,8 +341,8 @@ DFS：<figure class="highlight c++"><table><tr><td class="code"><pre><span class
         <category>Leetcode</category>
       </categories>
       <tags>
-        <tag>Linked List</tag>
         <tag>Leetcode</tag>
+        <tag>Linked List</tag>
       </tags>
   </entry>
 </search>
