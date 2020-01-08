@@ -53,18 +53,18 @@
   };
 </script>
 
-  <meta name="description" content="set简介set的值就是key，所有不允许有重复的值，且值按顺序排列。multiset简介与set基本一致，不同是允许重复值。map简介map是键值对，允许重复。">
-<meta name="keywords" content="数据结构 STL">
+  <meta name="description" content="const修饰变量const修饰变量，表示不可更改。可用于定义常量，还可以用#define定义常量，但是前者有很多优点： 编译器处理方式不同 define是在预处理阶段展开（预处理器）。 const是编译运行阶段使用（编译器）。 代码-&amp;gt;预处理器-&amp;gt;编译器-&amp;gt;汇编器-&amp;gt;连接器-&amp;gt;可执行文件。   类型和安全检查不同 define没有类型，不做安全检查。 const相反">
+<meta name="keywords" content="C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构（STL）">
-<meta property="og:url" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2019&#x2F;12&#x2F;30&#x2F;%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88STL%EF%BC%89&#x2F;index.html">
+<meta property="og:title" content="C++学习（const）">
+<meta property="og:url" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;01&#x2F;07&#x2F;C++%E5%AD%A6%E4%B9%A0%EF%BC%88const%EF%BC%89&#x2F;index.html">
 <meta property="og:site_name" content="Somehow&#39;s blog">
-<meta property="og:description" content="set简介set的值就是key，所有不允许有重复的值，且值按顺序排列。multiset简介与set基本一致，不同是允许重复值。map简介map是键值对，允许重复。">
+<meta property="og:description" content="const修饰变量const修饰变量，表示不可更改。可用于定义常量，还可以用#define定义常量，但是前者有很多优点： 编译器处理方式不同 define是在预处理阶段展开（预处理器）。 const是编译运行阶段使用（编译器）。 代码-&amp;gt;预处理器-&amp;gt;编译器-&amp;gt;汇编器-&amp;gt;连接器-&amp;gt;可执行文件。   类型和安全检查不同 define没有类型，不做安全检查。 const相反">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-30T13:05:16.744Z">
+<meta property="og:updated_time" content="2020-01-08T02:11:07.807Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://somehow0221.github.io/2019/12/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88STL%EF%BC%89/">
+<link rel="canonical" href="https://somehow0221.github.io/2020/01/07/C++%E5%AD%A6%E4%B9%A0%EF%BC%88const%EF%BC%89/">
 
 
 <script id="page-configurations">
@@ -78,7 +78,7 @@
   };
 </script>
 
-  <title>数据结构（STL） | Somehow's blog</title>
+  <title>C++学习（const） | Somehow's blog</title>
   
 
 
@@ -212,7 +212,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://somehow0221.github.io/2019/12/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88STL%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="https://somehow0221.github.io/2020/01/07/C++%E5%AD%A6%E4%B9%A0%EF%BC%88const%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lbxx.jpeg">
@@ -225,7 +225,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          数据结构（STL）
+          C++学习（const）
         </h1>
 
         <div class="post-meta">
@@ -234,18 +234,24 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-12-30 21:01:31 / 修改时间：21:05:16" itemprop="dateCreated datePublished" datetime="2019-12-30T21:01:31+08:00">2019-12-30</time>
+              <time title="创建时间：2020-01-07 15:52:11" itemprop="dateCreated datePublished" datetime="2020-01-07T15:52:11+08:00">2020-01-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-08 10:11:07" itemprop="dateModified" datetime="2020-01-08T10:11:07+08:00">2020-01-08</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
                   </a>
                 </span>
             </span>
@@ -266,8 +272,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2019/12/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88STL%EF%BC%89/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/12/30/数据结构（STL）/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/01/07/C++%E5%AD%A6%E4%B9%A0%EF%BC%88const%EF%BC%89/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/01/07/C++学习（const）/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -277,14 +283,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>81</span>
+              <span>932</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -296,7 +302,38 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="set"><a href="#set" class="headerlink" title="set"></a>set</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>set的值就是key，所有不允许有重复的值，且值按顺序排列。</p><h2 id="multiset"><a href="#multiset" class="headerlink" title="multiset"></a>multiset</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>与set基本一致，不同是允许重复值。</p><h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><h3 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h3><p>map是键值对，允许重复。</p>
+        <h4 id="const修饰变量"><a href="#const修饰变量" class="headerlink" title="const修饰变量"></a>const修饰变量</h4><p>const修饰变量，表示不可更改。可用于定义常量，还可以用#define定义常量，但是前者有很多优点：</p><ul>
+<li>编译器处理方式不同<ul>
+<li>define是在预处理阶段展开（预处理器）。</li>
+<li>const是编译运行阶段使用（编译器）。</li>
+<li>代码-&gt;预处理器-&gt;编译器-&gt;汇编器-&gt;连接器-&gt;可执行文件。</li>
+</ul>
+</li>
+<li>类型和安全检查不同<ul>
+<li>define没有类型，不做安全检查。</li>
+<li>const相反。</li>
+</ul>
+</li>
+<li>存储方式不同<ul>
+<li>define不分配内存，哪里使用在哪里展开，内存中不存储它。</li>
+<li>const常量在内存中只分配一次，节省内存。</li>
+</ul>
+</li>
+<li>作用域不同<ul>
+<li>define是全局的</li>
+<li>const修饰成员变量，需要注意的是：<ul>
+<li>在类内不能初始化，因为头文件中类的定义只是一个声明，无法真正分配空间。</li>
+<li>const定义后，就不能再赋值了</li>
+<li>解决方案是，（1）用初始化列表初始化；（2）将变量同时声明为static类型。<h4 id="const修饰指针变量"><a href="#const修饰指针变量" class="headerlink" title="const修饰指针变量"></a>const修饰指针变量</h4>有三种情况：</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>修饰指针指向的内容，指针内容不可变，指针指向可变。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>* p = <span class="number">27</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">27</span>;</span><br><span class="line">p = &amp;b;<span class="comment">//is it corrrect?</span></span><br><span class="line">*p = <span class="number">7</span>;<span class="comment">//wrong</span></span><br></pre></td></tr></table></figure></li>
+<li>修饰指针，指针不能指向其他地址，但内容可变。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>* <span class="keyword">const</span> p = <span class="number">27</span>;</span><br><span class="line">*p = <span class="number">7</span>;<span class="comment">//correct</span></span><br><span class="line"><span class="keyword">int</span> b = <span class="number">7</span>;</span><br><span class="line">p = &amp;b;<span class="comment">//wrong</span></span><br></pre></td></tr></table></figure></li>
+<li>两者皆有之。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">27</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>* <span class="keyword">const</span> p = &amp;a;</span><br></pre></td></tr></table></figure>
+<h4 id="修饰参数"><a href="#修饰参数" class="headerlink" title="修饰参数"></a>修饰参数</h4>通常传递参数利用传值方式传递，函数内会构造一个参数副本。但是遇到数据量较大或者是自定义类型的时候，可以用传址方式传递（指针和引用），但是存在参数在函数内被改变的风险，因此需要用const修饰。<h4 id="修饰返回值"><a href="#修饰返回值" class="headerlink" title="修饰返回值"></a>修饰返回值</h4>返回值传递的方式有很多，包括按值返回、按引用返回、按指针返回…<br>当按指针和引用返回时，可以用const修饰以防止在函数外面被修改。<h4 id="修饰函数"><a href="#修饰函数" class="headerlink" title="修饰函数"></a>修饰函数</h4>非静态成员函数后可以用const修饰，表示隐含传入成员函数的this指针是const指针（应该是指向的内容是const的吧？），修改它所在的类的成员的操作是不允许的，唯一例外是mutable修饰的成员。加了const修饰的成员函数可以被非const对象和const对象调用，但不加const的成员函数，只能被非const对象调用。</li>
+</ul>
     </div>
 
     
@@ -313,7 +350,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://somehow0221.github.io/2019/12/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88STL%EF%BC%89/" title="数据结构（STL）">https://somehow0221.github.io/2019/12/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88STL%EF%BC%89/</a>
+    <a href="https://somehow0221.github.io/2020/01/07/C++%E5%AD%A6%E4%B9%A0%EF%BC%88const%EF%BC%89/" title="C++学习（const）">https://somehow0221.github.io/2020/01/07/C++%E5%AD%A6%E4%B9%A0%EF%BC%88const%EF%BC%89/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -324,23 +361,23 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-STL/" rel="tag"># 数据结构 STL</a>
+              <a href="/tags/C/" rel="tag"># C++</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/12/30/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9D%90%E6%A0%87%EF%BC%89/" rel="next" title="Qt学习（坐标）">
-                  <i class="fa fa-chevron-left"></i> Qt学习（坐标）
+                <a href="/2020/01/07/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88sender%EF%BC%89/" rel="next" title="Qt学习（sender）">
+                  <i class="fa fa-chevron-left"></i> Qt学习（sender）
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2020/01/07/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88sender%EF%BC%89/" rel="prev" title="Qt学习（sender）">
-                  Qt学习（sender） <i class="fa fa-chevron-right"></i>
+                <a href="/2020/01/08/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88dialog%EF%BC%89/" rel="prev" title="Qt学习（dialog）">
+                  Qt学习（dialog） <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -387,7 +424,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#set"><span class="nav-number">1.</span> <span class="nav-text">set</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#multiset"><span class="nav-number">2.</span> <span class="nav-text">multiset</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介-1"><span class="nav-number">2.1.</span> <span class="nav-text">简介</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map"><span class="nav-number">3.</span> <span class="nav-text">map</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介-2"><span class="nav-number">3.1.</span> <span class="nav-text">简介</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#const修饰变量"><span class="nav-number">1.</span> <span class="nav-text">const修饰变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#const修饰指针变量"><span class="nav-number">2.</span> <span class="nav-text">const修饰指针变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修饰参数"><span class="nav-number">3.</span> <span class="nav-text">修饰参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修饰返回值"><span class="nav-number">4.</span> <span class="nav-text">修饰返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修饰函数"><span class="nav-number">5.</span> <span class="nav-text">修饰函数</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -403,20 +440,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -461,13 +498,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">25k</span>
+    <span title="站点总字数">26k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">42 分钟</span>
+    <span title="站点阅读时长">43 分钟</span>
 </div>
 
         
@@ -558,9 +595,9 @@
       DISQUS.reset({
         reload: true,
         config: {page: {
-            url: "https://somehow0221.github.io/2019/12/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88STL%EF%BC%89/",
-            identifier: "2019/12/30/数据结构（STL）/",
-            title: "数据结构（STL）"
+            url: "https://somehow0221.github.io/2020/01/07/C++%E5%AD%A6%E4%B9%A0%EF%BC%88const%EF%BC%89/",
+            identifier: "2020/01/07/C++学习（const）/",
+            title: "C++学习（const）"
           }
         }
       });

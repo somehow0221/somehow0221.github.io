@@ -1,8 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Qt学习（dialog）</title>
+    <url>/2020/01/08/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88dialog%EF%BC%89/</url>
+    <content><![CDATA[<p>QWidget继承自QObject和QPaintDevice，QDialog和QWindow继承自QWidget  </p><p>QWidget类成员函数setWindowFlags()，用来设置窗口的属性。Qt::WindowFlags具体有：</p><ul>
+<li>Qt::Widget</li>
+<li>Qt::Window</li>
+<li>Qt::Dialog</li>
+<li>Qt::Popup， 是一个弹出的模态顶级窗口</li>
+<li>Qt::Tool， 工具窗口</li>
+<li>Qt::ToolTip，工具提示窗口</li>
+<li>Qt::SplashScreen，启动界面</li>
+<li>Qt::Desktop，桌面类型</li>
+<li>Qt::SubWindow，子窗口</li>
+<li>Qt::ForeignWindow</li>
+<li>Qt::CoverWindow覆盖窗口  </li>
+</ul><a id="more"></a>
+
+
+<p>还包括一些修饰：</p>
+<ul>
+<li>Qt::CustomizeWindowHint，关闭默认的窗口提示</li>
+<li>Qt::WindowTitleHint，给窗口添加标题栏</li>
+<li>Qt::WindowSystemMenuHint，给窗口添加系统菜单</li>
+<li>Qt::WindowMinimizeButtonHint，添加最小化按钮</li>
+<li>Qt::WindowMaximizeButtonHint，添加最大化按钮</li>
+<li>Qt::WindowMinMaxButtonHint，都添加</li>
+<li>Qt::WindowContextHelpButtonHint，添加帮助按钮（问号）</li>
+<li>Qt::BypassGraphicsProxyWidget</li>
+<li>Qt::WindowShadeButtonHint，shade button?</li>
+<li>Qt::WindowStaysOnTopHint，在上面</li>
+<li>WindowStaysOnBottomHint，在下面</li>
+</ul>
+<p>还包括一些功能上的限制：</p>
+<ul>
+<li>Qt::WindowTransparentForInput，窗口只能输出，不接受输入</li>
+<li>Qt::WindowOverridesSystemGestures</li>
+<li>Qt::WindowDoesNotAcceptFocus，不接受输入焦点</li>
+<li>Qt::MaximizeUsingFullscreenGeometryHint</li>
+<li>Qt::WindowType_Mask</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Qt</category>
+      </categories>
+      <tags>
+        <tag>Qt</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C++学习（const）</title>
-    <url>/2020/01/07/C-%E5%AD%A6%E4%B9%A0%EF%BC%88const%EF%BC%89/</url>
+    <url>/2020/01/07/C++%E5%AD%A6%E4%B9%A0%EF%BC%88const%EF%BC%89/</url>
     <content><![CDATA[<h4 id="const修饰变量"><a href="#const修饰变量" class="headerlink" title="const修饰变量"></a>const修饰变量</h4><p>const修饰变量，表示不可更改。可用于定义常量，还可以用#define定义常量，但是前者有很多优点：</p><ul>
 <li>编译器处理方式不同<ul>
 <li>define是在预处理阶段展开（预处理器）。</li>
@@ -36,7 +84,7 @@
 <h4 id="修饰参数"><a href="#修饰参数" class="headerlink" title="修饰参数"></a>修饰参数</h4>通常传递参数利用传值方式传递，函数内会构造一个参数副本。但是遇到数据量较大或者是自定义类型的时候，可以用传址方式传递（指针和引用），但是存在参数在函数内被改变的风险，因此需要用const修饰。<h4 id="修饰返回值"><a href="#修饰返回值" class="headerlink" title="修饰返回值"></a>修饰返回值</h4>返回值传递的方式有很多，包括按值返回、按引用返回、按指针返回…<br>当按指针和引用返回时，可以用const修饰以防止在函数外面被修改。<h4 id="修饰函数"><a href="#修饰函数" class="headerlink" title="修饰函数"></a>修饰函数</h4>非静态成员函数后可以用const修饰，表示隐含传入成员函数的this指针是const指针（应该是指向的内容是const的吧？），修改它所在的类的成员的操作是不允许的，唯一例外是mutable修饰的成员。加了const修饰的成员函数可以被非const对象和const对象调用，但不加const的成员函数，只能被非const对象调用。</li>
 </ul>]]></content>
       <categories>
-        <category>基础知识</category>
+        <category>C++</category>
       </categories>
       <tags>
         <tag>C++</tag>
@@ -66,14 +114,14 @@
       </tags>
   </entry>
   <entry>
-    <title>数据结构（STL）</title>
-    <url>/2019/12/30/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88STL%EF%BC%89/</url>
+    <title>C++学习（STL）</title>
+    <url>/2019/12/30/C++%E5%AD%A6%E4%B9%A0%EF%BC%88STL%EF%BC%89/</url>
     <content><![CDATA[<h2 id="set"><a href="#set" class="headerlink" title="set"></a>set</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>set的值就是key，所有不允许有重复的值，且值按顺序排列。</p><h2 id="multiset"><a href="#multiset" class="headerlink" title="multiset"></a>multiset</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>与set基本一致，不同是允许重复值。</p><h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><h3 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h3><p>map是键值对，允许重复。</p>]]></content>
       <categories>
-        <category>数据结构</category>
+        <category>C++</category>
       </categories>
       <tags>
-        <tag>数据结构 STL</tag>
+        <tag>STL</tag>
       </tags>
   </entry>
   <entry>
@@ -197,7 +245,7 @@
 <p>Reset功能在实际使用中还是能起到一定方便的作用，因此我们也有添加。</p>
 ]]></content>
       <categories>
-        <category>Company</category>
+        <category>项目</category>
       </categories>
       <tags>
         <tag>Color Comporsite</tag>
@@ -229,7 +277,6 @@
         <category>Basic knowledge</category>
       </categories>
       <tags>
-        <tag>Basic knowledge</tag>
         <tag>深入理解计算机系统</tag>
       </tags>
   </entry>

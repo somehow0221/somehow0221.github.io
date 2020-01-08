@@ -53,14 +53,18 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Somehow&#39;s blog">
-<meta property="og:url" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;categories&#x2F;Company&#x2F;index.html">
+  <meta name="description" content="QWidget继承自QObject和QPaintDevice，QDialog和QWindow继承自QWidget  QWidget类成员函数setWindowFlags()，用来设置窗口的属性。Qt::WindowFlags具体有： Qt::Widget Qt::Window Qt::Dialog Qt::Popup， 是一个弹出的模态顶级窗口 Qt::Tool， 工具窗口 Qt::ToolTip">
+<meta name="keywords" content="Qt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qt学习（dialog）">
+<meta property="og:url" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;01&#x2F;08&#x2F;Qt%E5%AD%A6%E4%B9%A0%EF%BC%88dialog%EF%BC%89&#x2F;index.html">
 <meta property="og:site_name" content="Somehow&#39;s blog">
+<meta property="og:description" content="QWidget继承自QObject和QPaintDevice，QDialog和QWindow继承自QWidget  QWidget类成员函数setWindowFlags()，用来设置窗口的属性。Qt::WindowFlags具体有： Qt::Widget Qt::Window Qt::Dialog Qt::Popup， 是一个弹出的模态顶级窗口 Qt::Tool， 工具窗口 Qt::ToolTip">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-08T01:39:44.879Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://somehow0221.github.io/categories/Company/">
+<link rel="canonical" href="https://somehow0221.github.io/2020/01/08/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88dialog%EF%BC%89/">
 
 
 <script id="page-configurations">
@@ -68,13 +72,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>分类: Company | Somehow's blog</title>
+  <title>Qt学习（dialog） | Somehow's blog</title>
   
 
 
@@ -203,54 +207,214 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">Company
-          <small>分类</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://somehow0221.github.io/2020/01/08/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88dialog%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lbxx.jpeg">
+      <meta itemprop="name" content="Somehow0221">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Somehow's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Qt学习（dialog）
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-08 08:59:37 / 修改时间：09:39:44" itemprop="dateCreated datePublished" datetime="2020-01-08T08:59:37+08:00">2020-01-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Qt/" itemprop="url" rel="index">
+                    <span itemprop="name">Qt</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/01/08/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88dialog%EF%BC%89/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/01/08/Qt学习（dialog）/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>837</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
+        <p>QWidget继承自QObject和QPaintDevice，QDialog和QWindow继承自QWidget  </p><p>QWidget类成员函数setWindowFlags()，用来设置窗口的属性。Qt::WindowFlags具体有：</p><ul>
+<li>Qt::Widget</li>
+<li>Qt::Window</li>
+<li>Qt::Dialog</li>
+<li>Qt::Popup， 是一个弹出的模态顶级窗口</li>
+<li>Qt::Tool， 工具窗口</li>
+<li>Qt::ToolTip，工具提示窗口</li>
+<li>Qt::SplashScreen，启动界面</li>
+<li>Qt::Desktop，桌面类型</li>
+<li>Qt::SubWindow，子窗口</li>
+<li>Qt::ForeignWindow</li>
+<li>Qt::CoverWindow覆盖窗口  </li>
+</ul><a id="more"></a>
+
+
+<p>还包括一些修饰：</p>
+<ul>
+<li>Qt::CustomizeWindowHint，关闭默认的窗口提示</li>
+<li>Qt::WindowTitleHint，给窗口添加标题栏</li>
+<li>Qt::WindowSystemMenuHint，给窗口添加系统菜单</li>
+<li>Qt::WindowMinimizeButtonHint，添加最小化按钮</li>
+<li>Qt::WindowMaximizeButtonHint，添加最大化按钮</li>
+<li>Qt::WindowMinMaxButtonHint，都添加</li>
+<li>Qt::WindowContextHelpButtonHint，添加帮助按钮（问号）</li>
+<li>Qt::BypassGraphicsProxyWidget</li>
+<li>Qt::WindowShadeButtonHint，shade button?</li>
+<li>Qt::WindowStaysOnTopHint，在上面</li>
+<li>WindowStaysOnBottomHint，在下面</li>
+</ul>
+<p>还包括一些功能上的限制：</p>
+<ul>
+<li>Qt::WindowTransparentForInput，窗口只能输出，不接受输入</li>
+<li>Qt::WindowOverridesSystemGestures</li>
+<li>Qt::WindowDoesNotAcceptFocus，不接受输入焦点</li>
+<li>Qt::MaximizeUsingFullscreenGeometryHint</li>
+<li>Qt::WindowType_Mask</li>
+</ul>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
+      
+  <div class="popular-posts-header">��������Ƽ�</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2019\12\30\Qt学习（坐标）\" rel="bookmark">Qt学习（坐标）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2019\12\30\Qt学习（model-view）\" rel="bookmark">Qt学习（model/view）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2019\12\30\Qt学习（事件）\" rel="bookmark">Qt学习（事件）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2020\01\07\Qt学习（sender）\" rel="bookmark">Qt学习（sender）</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2019\12\09\Qt学习（路径）\" rel="bookmark">Qt学习（路径）</a></div>
+    </li>
+  </ul>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-22T15:43:32+08:00"
-              content="2019-11-22">
-          11-22
-        </time>
-      </div>
+        
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/22/%E9%A2%9C%E8%89%B2%E5%90%88%E6%88%90%E8%B0%83%E7%A0%94/" itemprop="url">
-            <span itemprop="name">颜色合成调研</span>
-          </a>
-      </h2>
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Somehow0221
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://somehow0221.github.io/2020/01/08/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88dialog%EF%BC%89/" title="Qt学习（dialog）">https://somehow0221.github.io/2020/01/08/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88dialog%EF%BC%89/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
 
-    </header>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Qt/" rel="tag"># Qt</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/01/07/C++%E5%AD%A6%E4%B9%A0%EF%BC%88const%EF%BC%89/" rel="next" title="C++学习（const）">
+                  <i class="fa fa-chevron-left"></i> C++学习（const）
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
           
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
         </div>
           
@@ -290,20 +454,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -348,13 +512,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">25k</span>
+    <span title="站点总字数">26k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">42 分钟</span>
+    <span title="站点阅读时长">43 分钟</span>
 </div>
 
         
@@ -438,6 +602,27 @@
   }
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "https://somehow0221.github.io/2020/01/08/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88dialog%EF%BC%89/",
+            identifier: "2020/01/08/Qt学习（dialog）/",
+            title: "Qt学习（dialog）"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shangminghao0221.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
 </script>
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"live2d-widget-model-haru_2"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
