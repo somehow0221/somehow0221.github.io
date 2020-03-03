@@ -1183,7 +1183,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #e282c2;
+  background: #132ff4;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2457,7 +2457,7 @@ embed {
   width: 320px;
 }
 body {
-  background: url("/images/cat.jpg");
+  background: url("/images/leaves.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
