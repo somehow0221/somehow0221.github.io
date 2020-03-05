@@ -1,6 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Qt学习（窗口控件）</title>
+    <url>/2020/03/05/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88%E7%AA%97%E5%8F%A3%E6%8E%A7%E4%BB%B6%EF%BC%89/</url>
+    <content><![CDATA[<p>继承关系如下图所示<a id="more"></a></p>
+<p><img src="/2020/03/05/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88%E7%AA%97%E5%8F%A3%E6%8E%A7%E4%BB%B6%EF%BC%89/%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB%E5%9B%BE.jpg" alt="继承关系图"></p>
+<h2 id="基础窗口部件QWidget"><a href="#基础窗口部件QWidget" class="headerlink" title="基础窗口部件QWidget"></a>基础窗口部件QWidget</h2><p><code>QWidget</code>继承自<code>QObject</code>和<code>QPaintDevice</code>，前者是Qt所有对象类型的基类，后者是所有可以绘制对象的基类。</p>
+<p><code>QWidget</code>的构造函数需要指定两个参数，一是父类指针，默认是空，<code>QWidget *parent = 0</code>；二是窗口类型<code>Qt::WindowFlags</code>，flag对窗口性质进行限定，具体查看帮助文档。</p>
+<p>Qt其他控件继承自<code>QWidget</code>，其他控件也可以做主窗口，Qt控件和窗口的区别是有没有父类。</p>
+<p><code>QWidget</code>还包括<code>setWindowState()</code>，设置窗口状态。</p>
+<h3 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h3><p><code>QWidget</code>有关于布局的成员函数如下图，例如<code>x()</code>、<code>y()</code>分别返回部件在其父部件中的位置坐标。</p>
+<img src="/2020/03/05/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88%E7%AA%97%E5%8F%A3%E6%8E%A7%E4%BB%B6%EF%BC%89/布局.jpg" alt="布局" style="zoom: 20%;">
+
+<h2 id="对话框QDialog"><a href="#对话框QDialog" class="headerlink" title="对话框QDialog"></a>对话框QDialog</h2><p><code>QDialog</code>是所有对话框的基类，对话框分为modal和modeless两类。模态用<code>exec()</code>显示，非模态用<code>show()</code>显示。但构造时<code>setModal()</code>指定为模态后也可以用<code>show()</code>显示模态对话框，与exec显示的区别是不阻塞其他窗口。另外也可以通过<code>setWindowModality()</code>代替<code>setModal()</code>，区别是可以指定阻塞的窗口。</p>
+<p>注意<code>QDialog</code>对象的作用域，如果不想<code>QDialog</code>对象在函数结束时被释放，可以用new指针分配内存，但关于其<strong>自动释放</strong>机制，我现在也不太清楚。</p>
+<p><code>QDialog::accept()</code>和<code>QDialog::reject()</code>，两个函数都是对模态对话框的隐藏，但前者将<code>exec()</code>的返回值设为<code>Accepted</code>，后者设置为<code>Rejected</code>。例如<code>if (dialog.exec() == QDialog::Accepted)</code>。</p>
+<h3 id="QColorDialog颜色对话框"><a href="#QColorDialog颜色对话框" class="headerlink" title="QColorDialog颜色对话框"></a>QColorDialog颜色对话框</h3><p>静态函数<code>QColorDialog::getColor()</code>可以创建对话框，返回获取的QColor颜色值，也可以创建<code>QColorDialog</code>对象。</p>
+<h3 id="QFileDialog文件对话框"><a href="#QFileDialog文件对话框" class="headerlink" title="QFileDialog文件对话框"></a>QFileDialog文件对话框</h3><p>静态函数<code>getOpenFileName()</code>可以创建对话框，返回获取的文件路径名<code>QString</code>；选择多个文件用<code>getOpenFileNames()</code>，返回获取的文件路径名<code>QStringList</code>；<code>getSaveFileName()</code>可以实现文件保存和文件另存。</p>
+<h3 id="QFontDialog字体对话框"><a href="#QFontDialog字体对话框" class="headerlink" title="QFontDialog字体对话框"></a>QFontDialog字体对话框</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> MyDialog::test()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">bool</span> ok;</span><br><span class="line">	QFont font = QFontDialog::getFont(&amp;ok, <span class="keyword">this</span>);</span><br><span class="line">	<span class="keyword">if</span> (ok)</span><br><span class="line">		<span class="keyword">this</span>.setFont(font);</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		qDebug() &lt;&lt; <span class="string">"he has not choose new font"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="QInputDialog输入对话框"><a href="#QInputDialog输入对话框" class="headerlink" title="QInputDialog输入对话框"></a>QInputDialog输入对话框</h3><h3 id="QMessageBox消息对话框"><a href="#QMessageBox消息对话框" class="headerlink" title="QMessageBox消息对话框"></a>QMessageBox消息对话框</h3><p>用的比较多了，具体分类是question、information、warning、wrong、about。</p>
+<h3 id="QProgressDialog进度对话框"><a href="#QProgressDialog进度对话框" class="headerlink" title="QProgressDialog进度对话框"></a>QProgressDialog进度对话框</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> MyDialog::test()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="function">QProgressDialog <span class="title">dialog</span><span class="params">(tr(<span class="string">"文件复制进度"</span>)，tr(<span class="string">"取消"</span>)，<span class="number">0</span>， <span class="number">5000</span>， <span class="keyword">this</span>)</span></span>;</span><br><span class="line">	dialog.setWindowTitle(tr(<span class="string">"进度对话框"</span>))；</span><br><span class="line">	dialog.setWindowModality(Qt::WindowModal);</span><br><span class="line">	dialog.show();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5000</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		dialog.setValue(i);</span><br><span class="line">		QCoreApplication::processEvents();<span class="comment">//避免界面由于长时间不操作冻结</span></span><br><span class="line">		<span class="keyword">if</span>(dialog.wasCanceled())</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	dialog.setValue(<span class="number">5000</span>);	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="错误信息对话框和向导对话框"><a href="#错误信息对话框和向导对话框" class="headerlink" title="错误信息对话框和向导对话框"></a>错误信息对话框和向导对话框</h3><h2 id="QFrame"><a href="#QFrame" class="headerlink" title="QFrame"></a>QFrame</h2><p><code>QFrame</code>的主要功能是用来实现不同的边框效果，主要由边框形状和边框阴影的组合来决定的。</p>
+<p>边框形状例如。<code>QFrame::NoFrame</code>、<code>QFrame::Box</code>、<code>QFrame::Panel</code>、<code>QFrame::StyledPanel</code>、<code>QFrame::HLine</code>、<code>QFrame::VLine</code>、<code>QFrame::WinPanel</code>。</p>
+<p>阴影形状例如：<code>QFrame::Plain</code>、<code>QFrame::Raised</code>、<code>QFrame::Sunken</code>。</p>
+<p><code>QFrame</code>的子类有<code>QLabel</code>、<code>QLCDNumber</code>、<code>QSplitter</code>、<code>QStackedWidget</code>、<code>QToolBox</code>、<code>QAbstractScrollArea</code>类。</p>
+<p><code>QAbstractScrollArea</code>是带滚动条的视图的基类。</p>
+<h3 id="QLabel"><a href="#QLabel" class="headerlink" title="QLabel"></a>QLabel</h3><p>用来显示文本和图片。<code>scaledContents</code>函数可以按照<code>QLabel</code>对象尺寸缩放内容。</p>
+<h2 id="QAbstractButton按钮控件"><a href="#QAbstractButton按钮控件" class="headerlink" title="QAbstractButton按钮控件"></a>QAbstractButton按钮控件</h2><p><code>QPushButtion</code>可以用<code>setMenu()</code>添加菜单，<code>QCheckBox</code>多选而<code>QRadioButton</code>单选，二者最好的配合<code>QGroupBox</code>使用，可以在传递信号槽的时候明确是哪个按钮，提供方便。</p>
+<h2 id="QLineEdit"><a href="#QLineEdit" class="headerlink" title="QLineEdit"></a>QLineEdit</h2><p>四种显示模式：Normal、NoEcho、Password、PasswordEchoOnEdit()。</p>
+<p>设置自动补全器——暂略，设置自动验证器：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">QValidator *validator = <span class="keyword">new</span> QIntValidator(<span class="number">100</span>, <span class="number">999</span>, <span class="keyword">this</span>);</span><br><span class="line">QLineEdit *lineEdit = <span class="keyword">new</span> QLineEdit(<span class="keyword">this</span>);</span><br><span class="line">lineEdit-&gt;setValidator(validator);</span><br></pre></td></tr></table></figure>
+
+<h2 id="QAbstractSpinBox"><a href="#QAbstractSpinBox" class="headerlink" title="QAbstractSpinBox"></a>QAbstractSpinBox</h2><p>子类是<code>QSpinBox</code>、<code>QDoubleSpinBox</code>、<code>QDateTimeEdit</code>。</p>
+<h2 id="QAbstractSlider"><a href="#QAbstractSlider" class="headerlink" title="QAbstractSlider"></a>QAbstractSlider</h2><p>子类是<code>QScrollBbar</code>、<code>QSlider</code>、<code>QDial</code>。分别是用在<code>QScrollArea</code>类中实现滚动区域、滑动条、表盘。</p>
+]]></content>
+      <categories>
+        <category>Qt学习</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>MFC学习（基础）</title>
+    <url>/2020/03/05/MFC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89/</url>
+    <content><![CDATA[<p>MFC的一些基础知识汇总，便于理解MFC程序。<a id="more"></a></p>
+<h2 id="用系统的API创建窗口"><a href="#用系统的API创建窗口" class="headerlink" title="用系统的API创建窗口"></a>用系统的API创建窗口</h2><h3 id="WinMain函数"><a href="#WinMain函数" class="headerlink" title="WinMain函数"></a>WinMain函数</h3><p>windows操作系统启动一个程序时，调用的是该程序的WinMain函数，相当于main函数，是个入口。</p>
+<p>创建程序的步骤是：</p>
+<ul>
+<li>创建一个win32项目，不是控制台了</li>
+<li>包含windows.h文件，包含了windows操作系统底层的API</li>
+<li>WinMain函数定义</li>
+<li>进行消息循环，不断地从消息队列中获取消息</li>
+<li>编写窗口过程函数</li>
+</ul>
+<h3 id="handle（句柄）"><a href="#handle（句柄）" class="headerlink" title="handle（句柄）"></a>handle（句柄）</h3><p>在windows程序中，各种各样的资源（窗口、图标、光标、画刷），系统在创建这些资源的时候为他们分配内存，并返回这些资源的标识号——句柄。可以简单理解为学生的学号，细分为图标句柄、画刷句柄、光标句柄。</p>
+<h3 id="消息和消息队列"><a href="#消息和消息队列" class="headerlink" title="消息和消息队列"></a>消息和消息队列</h3><p>点击鼠标，首先操作系统获取鼠标点击消息，将鼠标点击消息放到消息队列中，应用程序再从消息队列中获取鼠标点击消息，接着应用程序把要执行的内容当作消息，又分给操作系统，操作系统执行预先设定好的函数（回调函数）。</p>
+<h3 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h3><p>传入函数1中的函数，函数1执行时会用到。</p>
+<h2 id="MFC（微软基础类库-）"><a href="#MFC（微软基础类库-）" class="headerlink" title="MFC（微软基础类库 ）"></a>MFC（微软基础类库 ）</h2><p>windows最底层用C语言写了几千个API，MFC用C++面向对象的思想对这些API又进行了封装，形成了几百个类。</p>
+<p>主要学习MFC的框架设计思想。</p>
+<p>帮助文档：msdn。</p>
+<h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><h4 id="stdafx-h文件"><a href="#stdafx-h文件" class="headerlink" title="stdafx.h文件"></a>stdafx.h文件</h4><p>stdafx.h和stdafx.cpp，全称为standard application framework extensions 标准应用程序框架扩展，头文件包含了所有当前工程所需要的MFC include文件，cpp文件include了头文件。</p>
+<p>建立工程的时候首先编译stdafx.cpp文件，将结果保存在了一个名为stdafx.pch的文件里（.pch后缀表示预编译头文件），当编译器编译其他.cpp文件时，编译器会参照阅读.pch文件，只要.cpp文件中包含了stdafx.h。</p>
+<h4 id="afxwin-h文件"><a href="#afxwin-h文件" class="headerlink" title="afxwin.h文件"></a>afxwin.h文件</h4><p>af全程为Application Frame，x没有意义，afxwin.h是MFC编程必需的文件，只需要这一个文件就可以使用众多的控件。</p>
+<h4 id="targetver-h文件"><a href="#targetver-h文件" class="headerlink" title="targetver.h文件"></a>targetver.h文件</h4><p>targetver定义了程序运行需要的最低Windows版本。</p>
+<h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><p><code>CWinApp</code>应用程序基类，类中的虚函数<code>virtual BOOL InitInstance()</code>是程序入口。</p>
+<p><code>CFrameWnd</code>窗口基类，在程序入口中创建窗口对象即可。其他例如<strong>循环取消息</strong>等工作都由MFC封装好了。</p>
+<p>窗口对象调用<code>CWnd::ShowWindow()</code>显示窗口。<code>CWnd</code>是<code>CFrameWnd</code>的父类，还派生出了很多其他的窗口。</p>
+<p>同样之后用<code>CWnd::UpdateWindow()</code>更新。</p>
+<p>接着需要写m_pMainWnd = 窗口类对象地址，作用是<strong>保存指向应用程序对象主窗口的指针</strong>，获取到指针后，便于MFC封装的内容完成窗口的关闭、消息循环等操作。</p>
+<p>配置项目属性为：<strong>在共享DLL中使用MFC</strong>。</p>
+<h3 id="消息映射"><a href="#消息映射" class="headerlink" title="消息映射"></a>消息映射</h3><p>MFC中没有事件和信号槽的概念，只有消息映射的概念。消息映射是将消息和成员函数关联起来的<strong>表</strong></p>
+<p>若使用消息映射，必须在<strong>类的声明中</strong>声明一个消息映射的宏<code>DECLARE_MESSAGE_MAP()</code>。在类的实现中，需要写入一个<strong>起始宏</strong>和<strong>结束宏</strong>，<code>BEGIN_MESSAGE_MAP</code>(为哪个类起始的消息机制, 这个类的父类)和<code>END_MESSAGE_MAP()</code>。</p>
+<p>例如：窗口类声明中写声明宏、实现中起始宏和结束宏可以写在类的外面。起始宏和结束宏之间加入需要引入的<strong>消息宏</strong>，例如：需要引入鼠标左键按下消息，这里加入<code>ON_WM_LBUTTONDOWN()</code>。</p>
+<p><code>ON_WM_LBUTTONDOWN()</code>这个相当于表中的key，接着查找帮助文档，得到key对应的value，也就是<code>afx_msg void OnLButtonDown(UINT, CPoint)</code>，将这个value，在类中声明并实现，相当于事件函数那么做。</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>CString、CPaintDC画家类</p>
+<h3 id="框架类"><a href="#框架类" class="headerlink" title="框架类"></a>框架类</h3><p>PreCreateWindow：创建前修改窗口外观的机会</p>
+<p>create创建窗口，发送WM_CREATE消息，oncreate函数响应。</p>
+<p>ondraw onpaint画图的槽函数</p>
+<p>afx开头的是全局函数，EX结尾的是扩展函数（？参数多一些）</p>
+<p>afx_msg开头的函数，基本是槽函数afx_msg没有用。</p>
+<p>CStatic静态控件类，例如label</p>
+]]></content>
+      <categories>
+        <category>MFC学习</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>VS配置项目属性</title>
+    <url>/2020/03/05/VS%E9%85%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE%E5%B1%9E%E6%80%A7/</url>
+    <content><![CDATA[<p>通常我们使用vs需要用到附加的工具库，例如opencv，这时需要对项目属性进行配置。<a id="more"></a></p>
+<p>配置项目属性可以通过<strong>项目-&gt;属性</strong>打开项目属性页进行配置，项目属性页上方可以选择配置debug/release/所有配置，以及x64/x86。</p>
+<p>通常配置的内容包括：CV++目录-&gt;包含目录/库目录、链接器-&gt;输入-&gt;附加依赖项。</p>
+<p>到此一般配置即可完成，但对于常用的工具库，每次配置未免麻烦。此时可以在属性管理器中添加属性表，属性表与项目属性一同构筑项目属性，但属性表的优先级比后者低<a href="https://blog.csdn.net/wlk1229/article/details/65631111" target="_blank" rel="noopener">参考</a>。在属性表中配置上述属性后进行保存，以后每次新建工程时添加属性表即可。</p>
+<p>如果项目是共享项目，不同人之间的属性表就不能共用了，附加依赖库多时，重新修改很麻烦。这里可以在配置项目属性的路径时使用<strong>环境变量</strong>，大家定义相同的环境变量即可。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+  </entry>
+  <entry>
     <title>单目三维成像（仿真实验）</title>
     <url>/2020/03/05/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E4%BB%BF%E7%9C%9F%E5%AE%9E%E9%AA%8C%EF%BC%89/</url>
     <content><![CDATA[<p>3dplot程序目前只需输入一张图像，将图像的像素值作为z值，像素坐标作为x和y，在矩阵中利用点绘制函数进行绘制。<a id="more"></a></p>
@@ -17,8 +114,8 @@
 
 <h2 id="修改程序"><a href="#修改程序" class="headerlink" title="修改程序"></a>修改程序</h2><p>根据前言可知我们需要修改程序代码。修改的部分包括：图像输入接口部分、光线模型的输入参数、计算颜色函数的参数。</p>
 <h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>实验结果如下图所示，当前使用<code>GL_QUADS</code>和<code>GL_FILL</code>绘制模式绘制。颜色填充的原则是内部过程，因此侧边显示的是由彩色到黑色的渐变过程。</p>
-<img src="/2020/03/05/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E4%BB%BF%E7%9C%9F%E5%AE%9E%E9%AA%8C%EF%BC%89/3d.png" alt="3d" style="zoom: 63%;">
-<img src="/2020/03/05/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E4%BB%BF%E7%9C%9F%E5%AE%9E%E9%AA%8C%EF%BC%89/3d2.png" alt="3d2" style="zoom:67%;">
+<img src="/2020/03/05/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E4%BB%BF%E7%9C%9F%E5%AE%9E%E9%AA%8C%EF%BC%89/3d.jpg" alt="3d" style="zoom: 63%;">
+<img src="/2020/03/05/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E4%BB%BF%E7%9C%9F%E5%AE%9E%E9%AA%8C%EF%BC%89/3d2.jpg" alt="3d2" style="zoom:67%;">
 
 
 
@@ -51,7 +148,8 @@
   <entry>
     <title>颜色合成（调研）</title>
     <url>/2020/03/05/%E9%A2%9C%E8%89%B2%E5%90%88%E6%88%90%EF%BC%88%E8%B0%83%E7%A0%94%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="背景信息"><a href="#背景信息" class="headerlink" title="背景信息"></a>背景信息</h1><h2 id="荧光显微镜"><a href="#荧光显微镜" class="headerlink" title="荧光显微镜"></a>荧光显微镜</h2><p>荧光显微镜是指用荧光来产生一个图像的任何显微镜。对光源要求使用近乎单色光照明。<br>一个样本被两个荧光团标记，通过设置激发波片可以切换两个荧光团的激发波长。<a id="more"></a>每个荧光团发射波长也是确定的，可以通过确定的波片滤出来。滤出来的两幅图像就是这个样本不同结构的图像，这时候往往要染色，因为直接叠加的话就和传统光学显微镜一样，灰度域难以分辨，荧光没意义了。因此要染色，不是真彩色而是赋予这个结构这个颜色，也往往不用对应发射波长的颜色，因为没必要，发射波长的颜色也不是它真的颜色，就算是真的颜色也可以改，我们要的是”清晰“。那么得到了几个灰度图像了，怎么染色，怎么合成。</p>
+    <content><![CDATA[<p>对荧光图像染色合成进行调研。<a id="more"></a></p>
+<h1 id="背景信息"><a href="#背景信息" class="headerlink" title="背景信息"></a>背景信息</h1><h2 id="荧光显微镜"><a href="#荧光显微镜" class="headerlink" title="荧光显微镜"></a>荧光显微镜</h2><p>荧光显微镜是指用荧光来产生一个图像的任何显微镜。对光源要求使用近乎单色光照明。<br>一个样本被两个荧光团标记，通过设置激发波片可以切换两个荧光团的激发波长。<!--more-->每个荧光团发射波长也是确定的，可以通过确定的波片滤出来。滤出来的两幅图像就是这个样本不同结构的图像，这时候往往要染色，因为直接叠加的话就和传统光学显微镜一样，灰度域难以分辨，荧光没意义了。因此要染色，不是真彩色而是赋予这个结构这个颜色，也往往不用对应发射波长的颜色，因为没必要，发射波长的颜色也不是它真的颜色，就算是真的颜色也可以改，我们要的是”清晰“。那么得到了几个灰度图像了，怎么染色，怎么合成。</p>
 <p>染色是为了从颜色上区别。但是融合却要根据初始的图像信息取融合，这里不用RGB空间，用HIS空间或者其他是不是更好，融合时比较的原始的I图像，但是实际加上的像素是彩色的。RGB空间有没有问题我不知道…难点出来了，怎么样取颜色合成？？？？？</p>
 <h2 id="落射式荧光显微镜"><a href="#落射式荧光显微镜" class="headerlink" title="落射式荧光显微镜"></a>落射式荧光显微镜</h2><img src="/2020/03/05/%E9%A2%9C%E8%89%B2%E5%90%88%E6%88%90%EF%BC%88%E8%B0%83%E7%A0%94%EF%BC%89/落射式.png" alt="落射式.png" style="zoom:50%;">
 ## 共聚焦荧光显微镜

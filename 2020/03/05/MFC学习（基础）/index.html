@@ -53,17 +53,17 @@
   };
 </script>
 
-  <meta name="description" content="文本文件是指每个字符用ASCⅡ码表示的文件，这里的ASCⅡ码是0-255的整数，刚好是一个字节；二进制文件就是将文本文件中的每个ASCⅡ码用一个字节的二进制表示。">
+  <meta name="description" content="MFC的一些基础知识汇总，便于理解MFC程序。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入理解计算机系统（计算机系统漫游）">
-<meta property="og:url" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2019&#x2F;11&#x2F;16&#x2F;%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8%EF%BC%89&#x2F;index.html">
+<meta property="og:title" content="MFC学习（基础）">
+<meta property="og:url" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;05&#x2F;MFC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89&#x2F;index.html">
 <meta property="og:site_name" content="Somehow&#39;s blog">
-<meta property="og:description" content="文本文件是指每个字符用ASCⅡ码表示的文件，这里的ASCⅡ码是0-255的整数，刚好是一个字节；二进制文件就是将文本文件中的每个ASCⅡ码用一个字节的二进制表示。">
+<meta property="og:description" content="MFC的一些基础知识汇总，便于理解MFC程序。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-05T02:55:07.677Z">
+<meta property="og:updated_time" content="2020-03-05T08:46:19.043Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://somehow0221.github.io/2019/11/16/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8%EF%BC%89/">
+<link rel="canonical" href="https://somehow0221.github.io/2020/03/05/MFC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89/">
 
 
 <script id="page-configurations">
@@ -77,7 +77,7 @@
   };
 </script>
 
-  <title>深入理解计算机系统（计算机系统漫游） | Somehow's blog</title>
+  <title>MFC学习（基础） | Somehow's blog</title>
   
 
 
@@ -206,7 +206,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://somehow0221.github.io/2019/11/16/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="https://somehow0221.github.io/2020/03/05/MFC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/this.jpg">
@@ -219,7 +219,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          深入理解计算机系统（计算机系统漫游）
+          MFC学习（基础）
         </h1>
 
         <div class="post-meta">
@@ -228,24 +228,18 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-11-16 12:28:07" itemprop="dateCreated datePublished" datetime="2019-11-16T12:28:07+08:00">2019-11-16</time>
+              <time title="创建时间：2020-03-05 16:43:16 / 修改时间：16:46:19" itemprop="dateCreated datePublished" datetime="2020-03-05T16:43:16+08:00">2020-03-05</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-05 10:55:07" itemprop="dateModified" datetime="2020-03-05T10:55:07+08:00">2020-03-05</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
-                    <span itemprop="name">深入理解计算机系统</span>
+                  <a href="/categories/MFC%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">MFC学习</span>
                   </a>
                 </span>
             </span>
@@ -266,8 +260,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2019/11/16/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8%EF%BC%89/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/16/深入理解计算机系统（计算机系统漫游）/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/03/05/MFC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/05/MFC学习（基础）/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -277,14 +271,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1k</span>
+              <span>1.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -296,24 +290,43 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>文本文件是指每个字符用ASCⅡ码表示的文件，这里的ASCⅡ码是0-255的整数，刚好是一个字节；二进制文件就是将文本文件中的每个ASCⅡ码用一个字节的二进制表示。<a id="more"></a></p>
-<h2 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h2><p>.c文件-&gt;<em>预处理器</em>-&gt;.i文件-&gt;<em>编译器</em>-&gt;.s文件-&gt;<em>汇编器</em>-&gt;.o文件-&gt;<em>链接器</em>-&gt;可执行目标程序。 </p>
+        <p>MFC的一些基础知识汇总，便于理解MFC程序。<a id="more"></a></p>
+<h2 id="用系统的API创建窗口"><a href="#用系统的API创建窗口" class="headerlink" title="用系统的API创建窗口"></a>用系统的API创建窗口</h2><h3 id="WinMain函数"><a href="#WinMain函数" class="headerlink" title="WinMain函数"></a>WinMain函数</h3><p>windows操作系统启动一个程序时，调用的是该程序的WinMain函数，相当于main函数，是个入口。</p>
+<p>创建程序的步骤是：</p>
 <ul>
-<li>预处理器：将头文件融入.c文件中</li>
-<li>编译器：变成汇编语言</li>
-<li>汇编器：变成机器语言（由文本文件转为了二进制文件）</li>
-<li>连接器：将预编译好的机器语言结合进来（如printf函数）</li>
+<li>创建一个win32项目，不是控制台了</li>
+<li>包含windows.h文件，包含了windows操作系统底层的API</li>
+<li>WinMain函数定义</li>
+<li>进行消息循环，不断地从消息队列中获取消息</li>
+<li>编写窗口过程函数</li>
 </ul>
-<p>生成好的可执行目标程序即为处理器可直接解释的二进制文件，存储在内存当中。</p>
-<h2 id="处理器读取解释指令"><a href="#处理器读取解释指令" class="headerlink" title="处理器读取解释指令"></a>处理器读取解释指令</h2><h3 id="计算机硬件组成"><a href="#计算机硬件组成" class="headerlink" title="计算机硬件组成"></a>计算机硬件组成</h3><p>可以看到有三条总线分别是：I/O总线、内存总线、系统总线。总线的传输单位是32位或64位。也就是说计算机分为三大部分：输入输出设备（键鼠\屏幕\硬盘\网络）、内存、处理器。</p>
-<h3 id="处理器"><a href="#处理器" class="headerlink" title="处理器"></a>处理器</h3><p>处理器处理过程实际很复杂，简单进行抽象称之为“指令集架构”。处理器由三部分构成：程序计数器(PC)、寄存器文件和算数逻辑单元(ALU)。程序计数器实质是一个字大小的寄存器，每次指向下一步指令所在的内存地址；寄存器文件通过该地址读取数据执行指令，然后更新PC；执行指令用到的逻辑运算借由ALU实现。</p>
-<h3 id="高速缓存"><a href="#高速缓存" class="headerlink" title="高速缓存"></a>高速缓存</h3><p>系统从内存中读取指令又将执行结果输出到屏幕上，这个过程存在大量的复制操作。又由于不同硬件设备的读取效率差距很大，因此位保证程序执行过程的顺畅，需要借助高速缓存。</p>
-<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p>在上述执行程序的过程中，很多过程实际是借由操作系统完成的，操作系统是软件和硬件之间的桥梁。主要起到两个作用，一是防止硬件被失控的应用程序滥用；二是帮助应用程序控制硬件设备，操作系统通过两个抽象的概念实现这两个功能。</p>
-<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p>进程是操作系统对运行一个程序的一种抽象，系统可同时运行多个 进程。但这实际是一种假象，是通过在不同进程之间切换达到的（单处理器）。</p>
-<p>对多处理器分为多核和超线程两方面实现。多核即多个CPU集成，能同时执行多个进程；超线程技术是指缩短了处理器在不同进程之间切换的频率。多处理器的出现一方面减少了处理多进程时并发的需要（多核），另一方面对多线程编写的程序来说可以被执行的更快（多核和超线程）。</p>
-<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>线程是组成进程的执行单元。</p>
-<h3 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h3><p>系统为每个进程提供的虚拟内存控件。由小地址到大地址依次是：只读的代码和数据、堆、共享库、栈、内核虚拟内存（为系统内存保留的）。</p>
-<h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><p>I/O设备可以抽象成文件。</p>
+<h3 id="handle（句柄）"><a href="#handle（句柄）" class="headerlink" title="handle（句柄）"></a>handle（句柄）</h3><p>在windows程序中，各种各样的资源（窗口、图标、光标、画刷），系统在创建这些资源的时候为他们分配内存，并返回这些资源的标识号——句柄。可以简单理解为学生的学号，细分为图标句柄、画刷句柄、光标句柄。</p>
+<h3 id="消息和消息队列"><a href="#消息和消息队列" class="headerlink" title="消息和消息队列"></a>消息和消息队列</h3><p>点击鼠标，首先操作系统获取鼠标点击消息，将鼠标点击消息放到消息队列中，应用程序再从消息队列中获取鼠标点击消息，接着应用程序把要执行的内容当作消息，又分给操作系统，操作系统执行预先设定好的函数（回调函数）。</p>
+<h3 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h3><p>传入函数1中的函数，函数1执行时会用到。</p>
+<h2 id="MFC（微软基础类库-）"><a href="#MFC（微软基础类库-）" class="headerlink" title="MFC（微软基础类库 ）"></a>MFC（微软基础类库 ）</h2><p>windows最底层用C语言写了几千个API，MFC用C++面向对象的思想对这些API又进行了封装，形成了几百个类。</p>
+<p>主要学习MFC的框架设计思想。</p>
+<p>帮助文档：msdn。</p>
+<h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><h4 id="stdafx-h文件"><a href="#stdafx-h文件" class="headerlink" title="stdafx.h文件"></a>stdafx.h文件</h4><p>stdafx.h和stdafx.cpp，全称为standard application framework extensions 标准应用程序框架扩展，头文件包含了所有当前工程所需要的MFC include文件，cpp文件include了头文件。</p>
+<p>建立工程的时候首先编译stdafx.cpp文件，将结果保存在了一个名为stdafx.pch的文件里（.pch后缀表示预编译头文件），当编译器编译其他.cpp文件时，编译器会参照阅读.pch文件，只要.cpp文件中包含了stdafx.h。</p>
+<h4 id="afxwin-h文件"><a href="#afxwin-h文件" class="headerlink" title="afxwin.h文件"></a>afxwin.h文件</h4><p>af全程为Application Frame，x没有意义，afxwin.h是MFC编程必需的文件，只需要这一个文件就可以使用众多的控件。</p>
+<h4 id="targetver-h文件"><a href="#targetver-h文件" class="headerlink" title="targetver.h文件"></a>targetver.h文件</h4><p>targetver定义了程序运行需要的最低Windows版本。</p>
+<h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><p><code>CWinApp</code>应用程序基类，类中的虚函数<code>virtual BOOL InitInstance()</code>是程序入口。</p>
+<p><code>CFrameWnd</code>窗口基类，在程序入口中创建窗口对象即可。其他例如<strong>循环取消息</strong>等工作都由MFC封装好了。</p>
+<p>窗口对象调用<code>CWnd::ShowWindow()</code>显示窗口。<code>CWnd</code>是<code>CFrameWnd</code>的父类，还派生出了很多其他的窗口。</p>
+<p>同样之后用<code>CWnd::UpdateWindow()</code>更新。</p>
+<p>接着需要写m_pMainWnd = 窗口类对象地址，作用是<strong>保存指向应用程序对象主窗口的指针</strong>，获取到指针后，便于MFC封装的内容完成窗口的关闭、消息循环等操作。</p>
+<p>配置项目属性为：<strong>在共享DLL中使用MFC</strong>。</p>
+<h3 id="消息映射"><a href="#消息映射" class="headerlink" title="消息映射"></a>消息映射</h3><p>MFC中没有事件和信号槽的概念，只有消息映射的概念。消息映射是将消息和成员函数关联起来的<strong>表</strong></p>
+<p>若使用消息映射，必须在<strong>类的声明中</strong>声明一个消息映射的宏<code>DECLARE_MESSAGE_MAP()</code>。在类的实现中，需要写入一个<strong>起始宏</strong>和<strong>结束宏</strong>，<code>BEGIN_MESSAGE_MAP</code>(为哪个类起始的消息机制, 这个类的父类)和<code>END_MESSAGE_MAP()</code>。</p>
+<p>例如：窗口类声明中写声明宏、实现中起始宏和结束宏可以写在类的外面。起始宏和结束宏之间加入需要引入的<strong>消息宏</strong>，例如：需要引入鼠标左键按下消息，这里加入<code>ON_WM_LBUTTONDOWN()</code>。</p>
+<p><code>ON_WM_LBUTTONDOWN()</code>这个相当于表中的key，接着查找帮助文档，得到key对应的value，也就是<code>afx_msg void OnLButtonDown(UINT, CPoint)</code>，将这个value，在类中声明并实现，相当于事件函数那么做。</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>CString、CPaintDC画家类</p>
+<h3 id="框架类"><a href="#框架类" class="headerlink" title="框架类"></a>框架类</h3><p>PreCreateWindow：创建前修改窗口外观的机会</p>
+<p>create创建窗口，发送WM_CREATE消息，oncreate函数响应。</p>
+<p>ondraw onpaint画图的槽函数</p>
+<p>afx开头的是全局函数，EX结尾的是扩展函数（？参数多一些）</p>
+<p>afx_msg开头的函数，基本是槽函数afx_msg没有用。</p>
+<p>CStatic静态控件类，例如label</p>
 
     </div>
 
@@ -331,7 +344,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://somehow0221.github.io/2019/11/16/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8%EF%BC%89/" title="深入理解计算机系统（计算机系统漫游）">https://somehow0221.github.io/2019/11/16/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8%EF%BC%89/</a>
+    <a href="https://somehow0221.github.io/2020/03/05/MFC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89/" title="MFC学习（基础）">https://somehow0221.github.io/2020/03/05/MFC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -346,16 +359,16 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/12/Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%EF%BC%88%E6%A0%91%EF%BC%89/" rel="next" title="Leetcode刷题笔记（树）">
-                  <i class="fa fa-chevron-left"></i> Leetcode刷题笔记（树）
+                <a href="/2020/03/05/VS%E9%85%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE%E5%B1%9E%E6%80%A7/" rel="next" title="VS配置项目属性">
+                  <i class="fa fa-chevron-left"></i> VS配置项目属性
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2020/03/05/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E8%B0%83%E7%A0%94%EF%BC%89/" rel="prev" title="单目三维成像（调研）">
-                  单目三维成像（调研） <i class="fa fa-chevron-right"></i>
+                <a href="/2020/03/05/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88%E7%AA%97%E5%8F%A3%E6%8E%A7%E4%BB%B6%EF%BC%89/" rel="prev" title="Qt学习（窗口控件）">
+                  Qt学习（窗口控件） <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -402,7 +415,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编译过程"><span class="nav-number">1.</span> <span class="nav-text">编译过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理器读取解释指令"><span class="nav-number">2.</span> <span class="nav-text">处理器读取解释指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#计算机硬件组成"><span class="nav-number">2.1.</span> <span class="nav-text">计算机硬件组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理器"><span class="nav-number">2.2.</span> <span class="nav-text">处理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高速缓存"><span class="nav-number">2.3.</span> <span class="nav-text">高速缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作系统"><span class="nav-number">3.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程"><span class="nav-number">3.1.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程"><span class="nav-number">3.2.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟内存"><span class="nav-number">3.3.</span> <span class="nav-text">虚拟内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件"><span class="nav-number">3.4.</span> <span class="nav-text">文件</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#用系统的API创建窗口"><span class="nav-number">1.</span> <span class="nav-text">用系统的API创建窗口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#WinMain函数"><span class="nav-number">1.1.</span> <span class="nav-text">WinMain函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#handle（句柄）"><span class="nav-number">1.2.</span> <span class="nav-text">handle（句柄）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息和消息队列"><span class="nav-number">1.3.</span> <span class="nav-text">消息和消息队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回调函数"><span class="nav-number">1.4.</span> <span class="nav-text">回调函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MFC（微软基础类库-）"><span class="nav-number">2.</span> <span class="nav-text">MFC（微软基础类库 ）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#头文件"><span class="nav-number">2.1.</span> <span class="nav-text">头文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#stdafx-h文件"><span class="nav-number">2.1.1.</span> <span class="nav-text">stdafx.h文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#afxwin-h文件"><span class="nav-number">2.1.2.</span> <span class="nav-text">afxwin.h文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#targetver-h文件"><span class="nav-number">2.1.3.</span> <span class="nav-text">targetver.h文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础知识"><span class="nav-number">2.2.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息映射"><span class="nav-number">2.3.</span> <span class="nav-text">消息映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">2.4.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#框架类"><span class="nav-number">2.5.</span> <span class="nav-text">框架类</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -567,9 +580,9 @@
       DISQUS.reset({
         reload: true,
         config: {page: {
-            url: "https://somehow0221.github.io/2019/11/16/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%EF%BC%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8%EF%BC%89/",
-            identifier: "2019/11/16/深入理解计算机系统（计算机系统漫游）/",
-            title: "深入理解计算机系统（计算机系统漫游）"
+            url: "https://somehow0221.github.io/2020/03/05/MFC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89/",
+            identifier: "2020/03/05/MFC学习（基础）/",
+            title: "MFC学习（基础）"
           }
         }
       });
