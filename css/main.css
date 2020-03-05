@@ -1183,7 +1183,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #b5fe3c;
+  background: #fff109;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2471,10 +2471,23 @@ body {
   background: #fff;
   opacity: 0.9;
 }
-.footer {
-  font-size: 14px;
+.brand {
+  background: #000;
+  color: #ffb6c1;
+}
+.menu-item-active a,
+.menu .menu-item a:hover,
+.menu .menu-item span.exturl:hover {
   color: #fff;
 }
-.menu-item {
+a,
+span.exturl {
+  color: #ffb6c1;
+}
+.sidebar {
+  opacity: 0.9;
+}
+.footer {
+  font-size: 14px;
   color: #fff;
 }
