@@ -27,7 +27,7 @@
     version: '7.5.0',
     exturl: false,
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":true,"show_result":false,"style":"flat"},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
     fancybox: false,
@@ -65,7 +65,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;08&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%EF%BC%89&#x2F;008.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;08&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%EF%BC%89&#x2F;mask_1.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;08&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%EF%BC%89&#x2F;mask_2.jpg">
-<meta property="og:updated_time" content="2020-03-08T10:51:13.934Z">
+<meta property="og:updated_time" content="2020-03-08T11:37:06.094Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;08&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%EF%BC%89&#x2F;空域清晰度评价算法.jpg">
 
@@ -236,7 +236,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-03-08 15:06:21 / 修改时间：18:51:13" itemprop="dateCreated datePublished" datetime="2020-03-08T15:06:21+08:00">2020-03-08</time>
+              <time title="创建时间：2020-03-08 15:06:21 / 修改时间：19:37:06" itemprop="dateCreated datePublished" datetime="2020-03-08T15:06:21+08:00">2020-03-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -284,7 +284,7 @@
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -297,33 +297,35 @@
 
       
         <p>利用模拟的<strong>深度图像</strong>和<strong>清晰二维图像</strong>对3dplot程序进行修改和测试后，接下来保留3dplot程序对深度图和清晰的二维图的处理接口，增加对<strong>多聚焦图像序列</strong>进行处理的接口，并添加由上述序列计算深度图的部分。<a id="more"></a></p>
-<h2 id="增加接口"><a href="#增加接口" class="headerlink" title="增加接口"></a>增加接口</h2><p>在资源视图创建项目-&gt;添加事件处理函数，利用文件对话框选中图像，与原来的接口大同小异，不同的是允许用户选中多幅图像。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::Mat&gt; C3DPlotDemo::readImage()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> iFilter;</span><br><span class="line">	<span class="function">CFileDialog <span class="title">FileOpenDlg</span><span class="params">(TRUE, <span class="literal">NULL</span>, <span class="literal">NULL</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="comment">//隐藏只读选项、覆盖已有文件前提示一下、允许多选</span></span></span></span><br><span class="line"><span class="function"><span class="params">		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_ALLOWMULTISELECT,</span></span></span><br><span class="line"><span class="function"><span class="params">		_T(<span class="string">"Image Files (*.bmp; *.jpg; *.tif; *.png;)"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"|*.bmp; *.jpg; *.tif; *.png; |"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"Windows Bitmap (*.bmp)|*.bmp|"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"JPEG (*.jpg)|*.jpg|"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"TIF (*.tif)|*.tif|"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"PNG (*.png)|*.png|"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"All Files (*.*)|*.*||"</span>),</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="literal">NULL</span>)</span></span>;</span><br><span class="line">    <span class="comment">//m_ofn是一个结构体，定义了各个对话框的参数</span></span><br><span class="line">	FileOpenDlg.m_ofn.lpstrTitle = _T(<span class="string">"选择图片"</span>);</span><br><span class="line">	<span class="keyword">if</span> (iFilter != <span class="number">0</span>)</span><br><span class="line">        <span class="comment">//GetOFN()函数返回m_ofn</span></span><br><span class="line">		FileOpenDlg.GetOFN().nFilterIndex = iFilter;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::Mat&gt; imageSequence;</span><br><span class="line">	<span class="keyword">if</span> (FileOpenDlg.DoModal() == IDOK)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (!m_3dDlg)</span><br><span class="line">		&#123;</span><br><span class="line">            <span class="comment">//如果m_ofn.Flags设置了OFN_ALLOWMULTISELECT标志, 则调用此成员函数以检索列表中第一个文件路径名的位置。</span></span><br><span class="line">			POSITION fileNamesPosition = FileOpenDlg.GetStartPosition();</span><br><span class="line">			<span class="keyword">while</span> (fileNamesPosition != <span class="literal">NULL</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				CString cfilePath = FileOpenDlg.GetNextPathName(fileNamesPosition);</span><br><span class="line">				<span class="built_in">std</span>::<span class="built_in">string</span> filePath = cstring2string(cfilePath);</span><br><span class="line">				imageSequence.push_back(cv::imread(filePath));</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> imageSequence;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> imageSequence;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>cstring2string()</code>是<code>cstring</code>转为<code>string</code>的函数，就不放上来了。参考<a href="https://docs.microsoft.com/zh-cn/cpp/mfc/reference/cfiledialog-class?view=vs-2019#inheritance-hierarchy" target="_blank" rel="noopener">msdn</a></p>
+<h2 id="增加接口"><a href="#增加接口" class="headerlink" title="增加接口"></a>增加接口</h2><p>在资源视图创建项目-&gt;添加事件处理函数，利用文件对话框选中图像，与原来的接口大同小异，不同的是允许用户选中多幅图像。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::Mat&gt; C3DPlotDemo::readImage()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> iFilter;</span><br><span class="line">	<span class="function">CFileDialog <span class="title">FileOpenDlg</span><span class="params">(TRUE, <span class="literal">NULL</span>, <span class="literal">NULL</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="comment">//隐藏只读选项、覆盖已有文件前提示一下、允许多选</span></span></span></span><br><span class="line"><span class="function"><span class="params">		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_ALLOWMULTISELECT,</span></span></span><br><span class="line"><span class="function"><span class="params">		_T(<span class="string">"Image Files (*.bmp; *.jpg; *.tif; *.png;)"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"|*.bmp; *.jpg; *.tif; *.png; |"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"Windows Bitmap (*.bmp)|*.bmp|"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"JPEG (*.jpg)|*.jpg|"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"TIF (*.tif)|*.tif|"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"PNG (*.png)|*.png|"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"All Files (*.*)|*.*||"</span>),</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="literal">NULL</span>)</span></span>;</span><br><span class="line">    <span class="comment">//m_ofn是一个结构体，定义了各个对话框的参数</span></span><br><span class="line">	FileOpenDlg.m_ofn.lpstrTitle = _T(<span class="string">"选择图片"</span>);</span><br><span class="line">	<span class="keyword">if</span> (iFilter != <span class="number">0</span>)</span><br><span class="line">        <span class="comment">//GetOFN()函数返回m_ofn</span></span><br><span class="line">		FileOpenDlg.GetOFN().nFilterIndex = iFilter;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::Mat&gt; imageSequence;</span><br><span class="line">	<span class="keyword">if</span> (FileOpenDlg.DoModal() == IDOK)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (!m_3dDlg)</span><br><span class="line">		&#123;</span><br><span class="line">            <span class="comment">//如果m_ofn.Flags设置了OFN_ALLOWMULTISELECT标志, 则调用此成员函数以检索列表中第一个文件路径名的位置。</span></span><br><span class="line">			POSITION fileNamesPosition = FileOpenDlg.GetStartPosition();</span><br><span class="line">			<span class="keyword">while</span> (fileNamesPosition != <span class="literal">NULL</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				CString cfilePath = FileOpenDlg.GetNextPathName(fileNamesPosition);</span><br><span class="line">				<span class="built_in">std</span>::<span class="built_in">string</span> filePath = cstring2string(cfilePath);</span><br><span class="line">				imageSequence.push_back(cv::imread(filePath));</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> imageSequence;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> imageSequence;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><code>cstring2string()</code>是<code>cstring</code>转为<code>string</code>的函数，就不放上来了。参考<a href="https://docs.microsoft.com/zh-cn/cpp/mfc/reference/cfiledialog-class?view=vs-2019#inheritance-hierarchy" target="_blank" rel="noopener">msdn</a></p>
 <h2 id="DFD算法原理及实现"><a href="#DFD算法原理及实现" class="headerlink" title="DFD算法原理及实现"></a>DFD算法原理及实现</h2><p><strong>DFD算法的实现代码不能放到这里，是由师妹主要去做的，在此介绍算法的原理。</strong></p>
 <p>DFD全程Depth From Focus是一种从二维图像中三维重建的算法。大体原理是，对物体进行成像，使得物体最高或最低处成像清晰，之后保持成像系统参数不变，向上或向下移动物体，对物体进行扫描。利用成像系统景深小的原理，得到一系列部分清晰部分模糊的像，通过对像素的清晰度进行评价，可以得到哪个深度的像素最清晰，进而可以确定各个像素属于哪个深度。</p>
 <p>之后通过前期调研，该方法很适合显微领域的三维重建。比如DFD天然利用了显微系统景深小的特性，且显微领域内的重建对自动化水平要求不高，且可以引入扫描载物台设备。</p>
 <h3 id="确定清晰度评价方法"><a href="#确定清晰度评价方法" class="headerlink" title="确定清晰度评价方法"></a>确定清晰度评价方法</h3><p>如何评价清晰程度是DFD算法的关键，目前清晰度评价在<strong>多聚焦融合</strong>和<strong>自动对焦</strong>等应用上的研究比较深入。方法有很多，一方面是基于空域的<strong>梯度</strong>和<strong>二阶导</strong>等算子，另一方面是基于各种频域变换得到的<strong>高频部分</strong>。空域部分的算法有：</p>
-<img src="/2020/03/08/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%EF%BC%89/空域清晰度评价算法.jpg" alt="空域清晰度评价算法" style="zoom: 67%;">
-
-<p>文献 Multi-focus image fusion algorithm based on Laplacian pyramids中使用的是sum-modified-laplacian算法进行清晰度评价：<br>$$<br>\nabla_{M}^{2} I(x, y)=\left|\frac{\partial^{2} I}{\partial x^{2}}\right|+\left|\frac{\partial^{2} I}{\partial y^{2}}\right|<br>$$<br>离散的形式选择步长为1：<br>$$<br>\begin{aligned}<br>\nabla_{M}^{2} I(x, y)=&amp;|2 I(x, y)-I(x-1, y)-i(x+1, y)| \<br>&amp;+|2 I(x, y)-I(x, y-1)-i(x, y+1)|<br>\end{aligned}<br>$$<br>阈值T和步长的选取影响着结果：<br>$$<br>\mathrm{SML}=\sum_{x=i-w}^{i+w} \sum_{y=j-w}^{j+w} \nabla_{M}^{2} I(x, y), \quad \text { for } \nabla_{M}^{2} I(x, y) \geq T<br>$$</p>
-<p>师妹在测试sml算法时，算法的表现不佳，结合文献 Defocus mapestimationfromasingleimage 对sml算法进行优化。<strong>将拉普拉斯算子优化为一个高斯核</strong>，但是代码和算法好像有点出入：</p>
+<p><img src="/2020/03/08/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%EF%BC%89/空域清晰度评价算法.jpg" alt="空域清晰度评价算法" style="zoom: 67%;"></p>
+<p>文献 Multi-focus image fusion algorithm based on Laplacian pyramids中使用的是sum-modified-laplacian算法进行清晰度评价：</p>
+<script type="math/tex; mode=display">
+\nabla_{M}^{2} I(x, y)=\left|\frac{\partial^{2} I}{\partial x^{2}}\right|+\left|\frac{\partial^{2} I}{\partial y^{2}}\right|</script><p>离散的形式选择步长为1：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\nabla_{M}^{2} I(x, y)=&|2 I(x, y)-I(x-1, y)-i(x+1, y)| \\
+&+|2 I(x, y)-I(x, y-1)-i(x, y+1)|
+\end{aligned}</script><p>阈值T和步长的选取影响着结果：</p>
+<script type="math/tex; mode=display">
+\mathrm{SML}=\sum_{x=i-w}^{i+w} \sum_{y=j-w}^{j+w} \nabla_{M}^{2} I(x, y), \quad \text { for } \nabla_{M}^{2} I(x, y) \geq T</script><p>师妹在测试sml算法时，算法的表现不佳，结合文献 Defocus mapestimationfromasingleimage 对sml算法进行优化。<strong>将拉普拉斯算子优化为一个高斯核</strong>，但是代码和算法好像有点出入：</p>
 <ul>
 <li>没对邻域内阈值以上的值取和</li>
 <li>a方 + b方 再开放，而不是a的绝对值 + b的绝对值。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cv::Mat laplace_x, laplace_y, laplace_img;</span><br><span class="line">cv::Mat kernel_x, kernel_y;</span><br><span class="line">Gaussian_kernel(<span class="number">5</span>, <span class="number">0.5</span>, <span class="number">1</span>, kernel_x);</span><br><span class="line">Gaussian_kernel(<span class="number">5</span>, <span class="number">0.5</span>, <span class="number">2</span>, kernel_y);</span><br><span class="line">Convolution(src, kernel_x, laplace_x);</span><br><span class="line">Convolution(src, kernel_y, laplace_y);</span><br><span class="line">cv::Mat temp = laplace_x.mul(laplace_x) + laplace_y.mul(laplace_y);</span><br><span class="line">cv::<span class="built_in">pow</span>(temp, <span class="number">0.5</span>, laplace_img);</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>由于DFD算法还未结合实际的高度数据，目前得到一组二值化的图像序列，图像i的x、y像素表示第i幅defocus图像的x，y像素是否是图像序列中最清晰的像素。</p>
 <p>实验图像：</p>
-<img src="/2020/03/08/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%EF%BC%89/007.jpg" alt="007.jpg" style="zoom: 20%;">
-
-<img src="/2020/03/08/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%EF%BC%89/008.jpg" alt="008.jpg" style="zoom:20%;">
-
+<p><img src="/2020/03/08/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%EF%BC%89/007.jpg" alt="007.jpg" style="zoom: 20%;"></p>
+<p><img src="/2020/03/08/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%EF%BC%89/008.jpg" alt="008.jpg" style="zoom:20%;"></p>
 <p>结果中可以看出，第一幅图像和第二幅图像中清晰区域的分布情况：</p>
-<img src="/2020/03/08/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%EF%BC%89/mask_1.jpg" alt="mask_1.jpg" style="zoom:20%;">
+<p><img src="/2020/03/08/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%EF%BC%89/mask_1.jpg" alt="mask_1.jpg" style="zoom:20%;"></p>
+<p><img src="/2020/03/08/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%EF%BC%89/mask_2.jpg" alt="mask_2.jpg" style="zoom:20%;"></p>
 
-<img src="/2020/03/08/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%EF%BC%89/mask_2.jpg" alt="mask_2.jpg" style="zoom:20%;">
     </div>
 
     
@@ -554,6 +556,56 @@
 
 
   
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
 
