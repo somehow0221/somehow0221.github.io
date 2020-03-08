@@ -53,17 +53,17 @@
   };
 </script>
 
-  <meta name="description" content="MFC的一些基础知识汇总，便于理解MFC程序。">
+  <meta name="description" content="利用模拟的深度图像和清晰二维图像对3dplot程序进行修改和测试后，接下来保留3dplot程序对深度图和清晰的二维图的处理接口，增加对多聚焦图像序列进行处理的接口，并添加由上述序列计算深度图的部分。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MFC学习（基础）">
-<meta property="og:url" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;05&#x2F;MFC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89&#x2F;index.html">
+<meta property="og:title" content="单目三维成像（DFD算法实现）">
+<meta property="og:url" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;08&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E6%B3%95%E8%AE%A1%E7%AE%97%E6%B7%B1%E5%BA%A6%EF%BC%89&#x2F;index.html">
 <meta property="og:site_name" content="Somehow&#39;s blog">
-<meta property="og:description" content="MFC的一些基础知识汇总，便于理解MFC程序。">
+<meta property="og:description" content="利用模拟的深度图像和清晰二维图像对3dplot程序进行修改和测试后，接下来保留3dplot程序对深度图和清晰的二维图的处理接口，增加对多聚焦图像序列进行处理的接口，并添加由上述序列计算深度图的部分。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-05T08:46:19.043Z">
+<meta property="og:updated_time" content="2020-03-08T08:29:15.197Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://somehow0221.github.io/2020/03/05/MFC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89/">
+<link rel="canonical" href="https://somehow0221.github.io/2020/03/08/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E6%B3%95%E8%AE%A1%E7%AE%97%E6%B7%B1%E5%BA%A6%EF%BC%89/">
 
 
 <script id="page-configurations">
@@ -77,7 +77,7 @@
   };
 </script>
 
-  <title>MFC学习（基础） | Somehow's blog</title>
+  <title>单目三维成像（DFD算法实现） | Somehow's blog</title>
   
 
 
@@ -206,7 +206,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://somehow0221.github.io/2020/03/05/MFC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="https://somehow0221.github.io/2020/03/08/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E6%B3%95%E8%AE%A1%E7%AE%97%E6%B7%B1%E5%BA%A6%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/this.jpg">
@@ -219,7 +219,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          MFC学习（基础）
+          单目三维成像（DFD算法实现）
         </h1>
 
         <div class="post-meta">
@@ -230,7 +230,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-03-05 16:43:16 / 修改时间：16:46:19" itemprop="dateCreated datePublished" datetime="2020-03-05T16:43:16+08:00">2020-03-05</time>
+              <time title="创建时间：2020-03-08 15:06:21 / 修改时间：16:29:15" itemprop="dateCreated datePublished" datetime="2020-03-08T15:06:21+08:00">2020-03-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -238,8 +238,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MFC%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">MFC学习</span>
+                  <a href="/categories/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">单目三维成像</span>
                   </a>
                 </span>
             </span>
@@ -260,8 +260,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2020/03/05/MFC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/05/MFC学习（基础）/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/03/08/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E6%B3%95%E8%AE%A1%E7%AE%97%E6%B7%B1%E5%BA%A6%EF%BC%89/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/08/单目三维成像（DFD法计算深度）/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -271,7 +271,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -290,44 +290,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>MFC的一些基础知识汇总，便于理解MFC程序。<a id="more"></a></p>
-<h2 id="用系统的API创建窗口"><a href="#用系统的API创建窗口" class="headerlink" title="用系统的API创建窗口"></a>用系统的API创建窗口</h2><h3 id="WinMain函数"><a href="#WinMain函数" class="headerlink" title="WinMain函数"></a>WinMain函数</h3><p>windows操作系统启动一个程序时，调用的是该程序的WinMain函数，相当于main函数，是个入口。</p>
-<p>创建程序的步骤是：</p>
-<ul>
-<li>创建一个win32项目，不是控制台了</li>
-<li>包含windows.h文件，包含了windows操作系统底层的API</li>
-<li>WinMain函数定义</li>
-<li>进行消息循环，不断地从消息队列中获取消息</li>
-<li>编写窗口过程函数</li>
-</ul>
-<h3 id="handle（句柄）"><a href="#handle（句柄）" class="headerlink" title="handle（句柄）"></a>handle（句柄）</h3><p>在windows程序中，各种各样的资源（窗口、图标、光标、画刷），系统在创建这些资源的时候为他们分配内存，并返回这些资源的标识号——句柄。可以简单理解为学生的学号，细分为图标句柄、画刷句柄、光标句柄。</p>
-<h3 id="消息和消息队列"><a href="#消息和消息队列" class="headerlink" title="消息和消息队列"></a>消息和消息队列</h3><p>点击鼠标，首先操作系统获取鼠标点击消息，将鼠标点击消息放到消息队列中，应用程序再从消息队列中获取鼠标点击消息，接着应用程序把要执行的内容当作消息，又分给操作系统，操作系统执行预先设定好的函数（回调函数）。</p>
-<h3 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h3><p>传入函数1中的函数，函数1执行时会用到。</p>
-<h2 id="MFC（微软基础类库-）"><a href="#MFC（微软基础类库-）" class="headerlink" title="MFC（微软基础类库 ）"></a>MFC（微软基础类库 ）</h2><p>windows最底层用C语言写了几千个API，MFC用C++面向对象的思想对这些API又进行了封装，形成了几百个类。</p>
-<p>主要学习MFC的框架设计思想。</p>
-<p>帮助文档：msdn。</p>
-<h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><h4 id="stdafx-h文件"><a href="#stdafx-h文件" class="headerlink" title="stdafx.h文件"></a>stdafx.h文件</h4><p>stdafx.h和stdafx.cpp，全称为standard application framework extensions 标准应用程序框架扩展，头文件包含了所有当前工程所需要的MFC include文件，cpp文件include了头文件。</p>
-<p>建立工程的时候首先编译stdafx.cpp文件，将结果保存在了一个名为stdafx.pch的文件里（.pch后缀表示预编译头文件），当编译器编译其他.cpp文件时，编译器会参照阅读.pch文件，只要.cpp文件中包含了stdafx.h。</p>
-<h4 id="afxwin-h文件"><a href="#afxwin-h文件" class="headerlink" title="afxwin.h文件"></a>afxwin.h文件</h4><p>af全程为Application Frame，x没有意义，afxwin.h是MFC编程必需的文件，只需要这一个文件就可以使用众多的控件。</p>
-<h4 id="targetver-h文件"><a href="#targetver-h文件" class="headerlink" title="targetver.h文件"></a>targetver.h文件</h4><p>targetver定义了程序运行需要的最低Windows版本。</p>
-<h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><p><code>CWinApp</code>应用程序基类，类中的虚函数<code>virtual BOOL InitInstance()</code>是程序入口。</p>
-<p><code>CFrameWnd</code>窗口基类，在程序入口中创建窗口对象即可。其他例如<strong>循环取消息</strong>等工作都由MFC封装好了。</p>
-<p>窗口对象调用<code>CWnd::ShowWindow()</code>显示窗口。<code>CWnd</code>是<code>CFrameWnd</code>的父类，还派生出了很多其他的窗口。</p>
-<p>同样之后用<code>CWnd::UpdateWindow()</code>更新。</p>
-<p>接着需要写m_pMainWnd = 窗口类对象地址，作用是<strong>保存指向应用程序对象主窗口的指针</strong>，获取到指针后，便于MFC封装的内容完成窗口的关闭、消息循环等操作。</p>
-<p>配置项目属性为：<strong>在共享DLL中使用MFC</strong>。</p>
-<h3 id="消息映射"><a href="#消息映射" class="headerlink" title="消息映射"></a>消息映射</h3><p>MFC中没有事件和信号槽的概念，只有消息映射的概念。消息映射是将消息和成员函数关联起来的<strong>表</strong></p>
-<p>若使用消息映射，必须在<strong>类的声明中</strong>声明一个消息映射的宏<code>DECLARE_MESSAGE_MAP()</code>。在类的实现中，需要写入一个<strong>起始宏</strong>和<strong>结束宏</strong>，<code>BEGIN_MESSAGE_MAP</code>(为哪个类起始的消息机制, 这个类的父类)和<code>END_MESSAGE_MAP()</code>。</p>
-<p>例如：窗口类声明中写声明宏、实现中起始宏和结束宏可以写在类的外面。起始宏和结束宏之间加入需要引入的<strong>消息宏</strong>，例如：需要引入鼠标左键按下消息，这里加入<code>ON_WM_LBUTTONDOWN()</code>。</p>
-<p><code>ON_WM_LBUTTONDOWN()</code>这个相当于表中的key，接着查找帮助文档，得到key对应的value，也就是<code>afx_msg void OnLButtonDown(UINT, CPoint)</code>，将这个value，在类中声明并实现，相当于事件函数那么做。</p>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>CString、CPaintDC画家类</p>
-<h3 id="框架类"><a href="#框架类" class="headerlink" title="框架类"></a>框架类</h3><p>PreCreateWindow：创建前修改窗口外观的机会</p>
-<p>create创建窗口，发送WM_CREATE消息，oncreate函数响应。</p>
-<p>ondraw onpaint画图的槽函数</p>
-<p>afx开头的是全局函数，EX结尾的是扩展函数（？参数多一些）</p>
-<p>afx_msg开头的函数，基本是槽函数afx_msg没有用。</p>
-<p>CStatic静态控件类，例如label</p>
-
+        <p>利用模拟的<strong>深度图像</strong>和<strong>清晰二维图像</strong>对3dplot程序进行修改和测试后，接下来保留3dplot程序对深度图和清晰的二维图的处理接口，增加对<strong>多聚焦图像序列</strong>进行处理的接口，并添加由上述序列计算深度图的部分。<a id="more"></a></p>
+<h2 id="增加接口"><a href="#增加接口" class="headerlink" title="增加接口"></a>增加接口</h2><p>在资源视图创建项目-&gt;添加事件处理函数，利用文件对话框选中图像，与原来的接口大同小异，不同的是允许用户选中多幅图像。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::Mat&gt; C3DPlotDemo::readImage()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> iFilter;</span><br><span class="line">	<span class="function">CFileDialog <span class="title">FileOpenDlg</span><span class="params">(TRUE, <span class="literal">NULL</span>, <span class="literal">NULL</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="comment">//隐藏只读选项、覆盖已有文件前提示一下、允许多选</span></span></span></span><br><span class="line"><span class="function"><span class="params">		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_ALLOWMULTISELECT,</span></span></span><br><span class="line"><span class="function"><span class="params">		_T(<span class="string">"Image Files (*.bmp; *.jpg; *.tif; *.png;)"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"|*.bmp; *.jpg; *.tif; *.png; |"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"Windows Bitmap (*.bmp)|*.bmp|"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"JPEG (*.jpg)|*.jpg|"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"TIF (*.tif)|*.tif|"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"PNG (*.png)|*.png|"</span></span></span></span><br><span class="line"><span class="function"><span class="params">			<span class="string">"All Files (*.*)|*.*||"</span>),</span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="literal">NULL</span>)</span></span>;</span><br><span class="line">    <span class="comment">//m_ofn是一个结构体，定义了各个对话框的参数</span></span><br><span class="line">	FileOpenDlg.m_ofn.lpstrTitle = _T(<span class="string">"选择图片"</span>);</span><br><span class="line">	<span class="keyword">if</span> (iFilter != <span class="number">0</span>)</span><br><span class="line">        <span class="comment">//GetOFN()函数返回m_ofn</span></span><br><span class="line">		FileOpenDlg.GetOFN().nFilterIndex = iFilter;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;cv::Mat&gt; imageSequence;</span><br><span class="line">	<span class="keyword">if</span> (FileOpenDlg.DoModal() == IDOK)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (!m_3dDlg)</span><br><span class="line">		&#123;</span><br><span class="line">            <span class="comment">//如果m_ofn.Flags设置了OFN_ALLOWMULTISELECT标志, 则调用此成员函数以检索列表中第一个文件路径名的位置。</span></span><br><span class="line">			POSITION fileNamesPosition = FileOpenDlg.GetStartPosition();</span><br><span class="line">			<span class="keyword">while</span> (fileNamesPosition != <span class="literal">NULL</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				CString cfilePath = FileOpenDlg.GetNextPathName(fileNamesPosition);</span><br><span class="line">				<span class="built_in">std</span>::<span class="built_in">string</span> filePath = cstring2string(cfilePath);</span><br><span class="line">				imageSequence.push_back(cv::imread(filePath));</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> imageSequence;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> imageSequence;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">string</span> C3DPlotDemo::cstring2string(CString cstr)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">wchar_t</span> *wsp = cstr.GetBuffer();</span><br><span class="line">	<span class="keyword">size_t</span> len = wcslen(wsp) + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">size_t</span> converted = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">char</span> *csp = <span class="literal">NULL</span>;</span><br><span class="line">	csp = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(len * <span class="keyword">sizeof</span>(<span class="keyword">char</span>));</span><br><span class="line">	<span class="keyword">if</span> (csp)</span><br><span class="line">		wcstombs_s(&amp;converted, csp, len, wsp, _TRUNCATE);</span><br><span class="line">	<span class="keyword">if</span> (converted)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">str</span><span class="params">(csp, cstr.GetLength() + <span class="number">1</span>)</span></span>;</span><br><span class="line">		<span class="built_in">free</span>(csp);</span><br><span class="line">		csp = <span class="literal">NULL</span>;</span><br><span class="line">		cstr.ReleaseBuffer();</span><br><span class="line">		<span class="keyword">return</span> str;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">free</span>(csp);</span><br><span class="line">	csp = <span class="literal">NULL</span>;</span><br><span class="line">	cstr.ReleaseBuffer();</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">std</span>::<span class="built_in">string</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考<a href="https://docs.microsoft.com/zh-cn/cpp/mfc/reference/cfiledialog-class?view=vs-2019#inheritance-hierarchy" target="_blank" rel="noopener">msdn</a></p>
+<h2 id="DFD算法实现"><a href="#DFD算法实现" class="headerlink" title="DFD算法实现"></a>DFD算法实现</h2>
     </div>
 
     
@@ -344,7 +312,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://somehow0221.github.io/2020/03/05/MFC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89/" title="MFC学习（基础）">https://somehow0221.github.io/2020/03/05/MFC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89/</a>
+    <a href="https://somehow0221.github.io/2020/03/08/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E6%B3%95%E8%AE%A1%E7%AE%97%E6%B7%B1%E5%BA%A6%EF%BC%89/" title="单目三维成像（DFD算法实现）">https://somehow0221.github.io/2020/03/08/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E6%B3%95%E8%AE%A1%E7%AE%97%E6%B7%B1%E5%BA%A6%EF%BC%89/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -359,17 +327,14 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2020/03/05/VS%E9%85%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE%E5%B1%9E%E6%80%A7/" rel="next" title="VS配置项目属性">
-                  <i class="fa fa-chevron-left"></i> VS配置项目属性
+                <a href="/2020/03/05/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88%E7%AA%97%E5%8F%A3%E6%8E%A7%E4%BB%B6%EF%BC%89/" rel="next" title="Qt学习（窗口控件）">
+                  <i class="fa fa-chevron-left"></i> Qt学习（窗口控件）
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2020/03/05/Qt%E5%AD%A6%E4%B9%A0%EF%BC%88%E7%AA%97%E5%8F%A3%E6%8E%A7%E4%BB%B6%EF%BC%89/" rel="prev" title="Qt学习（窗口控件）">
-                  Qt学习（窗口控件） <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -415,7 +380,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#用系统的API创建窗口"><span class="nav-number">1.</span> <span class="nav-text">用系统的API创建窗口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#WinMain函数"><span class="nav-number">1.1.</span> <span class="nav-text">WinMain函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#handle（句柄）"><span class="nav-number">1.2.</span> <span class="nav-text">handle（句柄）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息和消息队列"><span class="nav-number">1.3.</span> <span class="nav-text">消息和消息队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回调函数"><span class="nav-number">1.4.</span> <span class="nav-text">回调函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MFC（微软基础类库-）"><span class="nav-number">2.</span> <span class="nav-text">MFC（微软基础类库 ）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#头文件"><span class="nav-number">2.1.</span> <span class="nav-text">头文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#stdafx-h文件"><span class="nav-number">2.1.1.</span> <span class="nav-text">stdafx.h文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#afxwin-h文件"><span class="nav-number">2.1.2.</span> <span class="nav-text">afxwin.h文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#targetver-h文件"><span class="nav-number">2.1.3.</span> <span class="nav-text">targetver.h文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础知识"><span class="nav-number">2.2.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息映射"><span class="nav-number">2.3.</span> <span class="nav-text">消息映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">2.4.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#框架类"><span class="nav-number">2.5.</span> <span class="nav-text">框架类</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#增加接口"><span class="nav-number">1.</span> <span class="nav-text">增加接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DFD算法实现"><span class="nav-number">2.</span> <span class="nav-text">DFD算法实现</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -580,9 +545,9 @@
       DISQUS.reset({
         reload: true,
         config: {page: {
-            url: "https://somehow0221.github.io/2020/03/05/MFC%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89/",
-            identifier: "2020/03/05/MFC学习（基础）/",
-            title: "MFC学习（基础）"
+            url: "https://somehow0221.github.io/2020/03/08/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88DFD%E6%B3%95%E8%AE%A1%E7%AE%97%E6%B7%B1%E5%BA%A6%EF%BC%89/",
+            identifier: "2020/03/08/单目三维成像（DFD法计算深度）/",
+            title: "单目三维成像（DFD算法实现）"
           }
         }
       });
