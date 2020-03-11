@@ -22,7 +22,7 @@
 <p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/DepthMap_1_4.jpg" alt="DepthMap_1_4.jpg" style="zoom:20%;"></p>
 <h2 id="3d输出"><a href="#3d输出" class="headerlink" title="3d输出"></a>3d输出</h2><p>Helicon Focus软件在method B融合时，可以输出3d模型，用他们公司的3d viewer软件就可以观看，界面如下。可以看到，允许用户选择成像质量、调节大小、旋转角度、自动旋转的速度、<strong>轮廓放大</strong>、<strong>平滑</strong>等。</p>
 <p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/3d界面.jpg" alt="3d界面.jpg"></p>
-<p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/3d界面2.jpg" alt="3d界面2.jpg"></p>
+<p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/3d界面_2.jpg" alt="3d界面_2.jpg"></p>
 <h2 id="Relief-Amplifier"><a href="#Relief-Amplifier" class="headerlink" title="Relief Amplifier"></a>Relief Amplifier</h2><p>调节的图像序列中相邻图像的间隔大小，宏观上表现就是轮廓是否明显。</p>
 <h2 id="Smoothing"><a href="#Smoothing" class="headerlink" title="Smoothing"></a>Smoothing</h2><p>当完全不加Smoothing时，完全根据深度图像绘制，成阶梯状，如下图所示。</p>
 <p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/阶梯图.jpg" alt="阶梯图.jpg" style="zoom: 50%;"></p>
