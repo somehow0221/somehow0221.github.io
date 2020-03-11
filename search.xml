@@ -3,7 +3,8 @@
   <entry>
     <title>单目三维成像（实验）</title>
     <url>/2020/03/11/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C%EF%BC%89/</url>
-    <content><![CDATA[<p>首先从师妹那里获得了defocus图像序列<a id="more"></a>：</p>
+    <content><![CDATA[<p>利用多聚焦图像序列进行实验——求取深度图像，利用求得的深度图像和已有的颜色图像进行三维绘图。<a id="more"></a></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>首先从师妹那里获得了defocus图像序列：</p>
 <p><img src="/2020/03/11/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C%EF%BC%89/资源.png" alt="资源.png" style="zoom: 50%;"></p>
 <p>测试程序代码，得到mask结果为：</p>
 <p><img src="/2020/03/11/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C%EF%BC%89/mask.png" alt="mask.png" style="zoom:50%;"></p>
