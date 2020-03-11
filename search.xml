@@ -6,9 +6,9 @@
     <content><![CDATA[<p>Helicon Focus是<a href="https://www.heliconsoft.com/heliconsoft-products/helicon-focus/" target="_blank" rel="noopener">HeliconSoft公司</a>的一款软件。<a id="more"></a>功能是对Z轴扫描的方式得到的多聚焦图像，进行多聚焦融合得到清晰的二维图像，实现景深延拓；并在多聚焦融合过程中利用DFD算法得到深度图，实现三维成像。并利用3d viewer进行三维显示。</p>
 <h2 id="主界面"><a href="#主界面" class="headerlink" title="主界面"></a>主界面</h2><p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/主界面.png" alt="主界面.png"></p>
 <h2 id="融合算法"><a href="#融合算法" class="headerlink" title="融合算法"></a>融合算法</h2><p>可以看到有三种融合方法，method B对图像序列顺序有要求，并可以生成深度图；method C是金字塔融合算法对顺序没有要求。由于method B是我们目前采用的算法，无论是求深度图还是求聚焦融合图像，因此后面主要考虑method B。</p>
-<p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/融合算法简介.jpg" alt="融合算法简介.jpg"></p>
+<p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/融合算法简介.jpg" alt="融合算法简介.jpg" style="zoom: 67%;"></p>
 <h2 id="Radius参数"><a href="#Radius参数" class="headerlink" title="Radius参数"></a>Radius参数</h2><p>半径参数是两种主要参数之一，范围是<strong>1-50</strong>，只对method A和method B适用。半径的作用暂时不清楚，越小深度图越精细，但容易受到噪点的影响，也容易产生光晕。</p>
-<p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/半径.jpg" alt="半径.jpg"></p>
+<p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/半径.jpg" alt="半径.jpg" style="zoom:67%;"></p>
 <p>改变Radius参数做了几组实验，结果如下。根据实验结果推测，应该是在半径划定的区域内，若超过半数的像素来自于一幅图像，则该区域的像素全取自该图像。</p>
 <p>半径1平滑4：</p>
 <p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/DepthMap_1_4.jpg" alt="DepthMap_1_4.jpg" style="zoom: 20%;"></p>
@@ -21,12 +21,12 @@
 <p>半径1平滑4：</p>
 <p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/DepthMap_1_4.jpg" alt="DepthMap_1_4.jpg" style="zoom:20%;"></p>
 <h2 id="3d输出"><a href="#3d输出" class="headerlink" title="3d输出"></a>3d输出</h2><p>Helicon Focus软件在method B融合时，可以输出3d模型，用他们公司的3d viewer软件就可以观看，界面如下。可以看到，允许用户选择成像质量、调节大小、旋转角度、自动旋转的速度、<strong>轮廓放大</strong>、<strong>平滑</strong>等。</p>
-<p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/3d界面.jpg" alt="3d界面.jpg"></p>
-<p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/3d界面_2.jpg" alt="3d界面_2.jpg"></p>
+<p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/3d界面.jpg" alt="3d界面.jpg" style="zoom:67%;"></p>
+<p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/3d界面_2.jpg" alt="3d界面_2.jpg" style="zoom:67%;"></p>
 <h2 id="Relief-Amplifier"><a href="#Relief-Amplifier" class="headerlink" title="Relief Amplifier"></a>Relief Amplifier</h2><p>调节的图像序列中相邻图像的间隔大小，宏观上表现就是轮廓是否明显。</p>
 <h2 id="Smoothing"><a href="#Smoothing" class="headerlink" title="Smoothing"></a>Smoothing</h2><p>当完全不加Smoothing时，完全根据深度图像绘制，成阶梯状，如下图所示。</p>
-<p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/阶梯图.jpg" alt="阶梯图.jpg" style="zoom: 50%;"></p>
-<p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/平滑图.jpg" alt="平滑图.jpg" style="zoom:50%;"></p>
+<p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/阶梯图.jpg" alt="阶梯图.jpg" style="zoom: 67%;"></p>
+<p><img src="/2020/03/09/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88Helicon-Focus%E8%BD%AF%E4%BB%B6%E8%B0%83%E7%A0%94%EF%BC%89/平滑图.jpg" alt="平滑图.jpg" style="zoom: 67%;"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总之Helicon Focus软件的想法是：首先对深度图进行处理，使得主要是区域性的、接着在绘制的时候可以调节各个区域之间的连接的平滑程度。</p>
 <p>与我之前的想法有很多不同，单独对每个像素进行插值，确定精确的位置，在直接进行绘制，绘制过程中去除噪点。</p>
 <p>明显它相对不太难，且对很多较为平滑的结构更适合。</p>
