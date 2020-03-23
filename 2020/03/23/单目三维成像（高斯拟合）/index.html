@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Somehow's blog" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="从实验中可以看出，目前的深度图无法进行很好的三维成像，因此需要优化深度图求取算法。首先修改清晰度评价算子，其次采用高斯拟合的方法对数据进行优化。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单目三维成像（高斯拟合）">
+<meta property="og:url" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;23&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89&#x2F;index.html">
+<meta property="og:site_name" content="Somehow&#39;s blog">
+<meta property="og:description" content="从实验中可以看出，目前的深度图无法进行很好的三维成像，因此需要优化深度图求取算法。首先修改清晰度评价算子，其次采用高斯拟合的方法对数据进行优化。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;23&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89&#x2F;矩阵.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;23&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89&#x2F;原理.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;23&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89&#x2F;原理2.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;23&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89&#x2F;HFColor.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;23&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89&#x2F;size3.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;23&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89&#x2F;size5.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;23&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89&#x2F;size9.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;23&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89&#x2F;size15.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;23&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89&#x2F;size27.jpg">
+<meta property="og:updated_time" content="2020-03-23T09:55:57.120Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;23&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89&#x2F;矩阵.jpg">
+
+<link rel="canonical" href="https://somehow0221.github.io/2020/03/23/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>单目三维成像（高斯拟合） | Somehow's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Somehow's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://somehow0221.github.io/2020/03/23/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/this.jpg">
+      <meta itemprop="name" content="Somehow0221">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Somehow's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          单目三维成像（高斯拟合）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-23 15:37:00 / 修改时间：17:55:57" itemprop="dateCreated datePublished" datetime="2020-03-23T15:37:00+08:00">2020-03-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">单目三维成像</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/03/23/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/23/单目三维成像（高斯拟合）/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>585</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>从实验中可以看出，目前的深度图无法进行很好的三维成像，因此需要优化深度图求取算法。首先修改清晰度评价算子，其次采用高斯拟合的方法对数据进行优化。<a id="more"></a></p>
+<h2 id="采用Laplacian算子"><a href="#采用Laplacian算子" class="headerlink" title="采用Laplacian算子"></a>采用Laplacian算子</h2><p>原来程序采用的是师妹提出的用正态分布优化后的Laplacian算子，但该算子在尺寸改变时，难以确定sigma数值。这不利于后续优化实验，因此暂时替换为传统的Laplacian算子。3 * 3的算子如下图所示。</p>
+<p><img src="/2020/03/23/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89/矩阵.jpg" alt="矩阵.jpg"></p>
+<p>采用OpenCV自带的函数实现即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cv::Laplacian(src, laplacianImg, <span class="number">-1</span>, kernelSize);</span><br></pre></td></tr></table></figure>
+<h2 id="高斯拟合"><a href="#高斯拟合" class="headerlink" title="高斯拟合"></a>高斯拟合</h2><p>高斯拟合是指对一组符合高斯分布的数据，进行处理，求出满足分布的高斯曲线的参数。高斯拟合的原理如下图所示：</p>
+<p><img src="/2020/03/23/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89/原理.jpg" alt="原理.jpg"></p>
+<p><img src="/2020/03/23/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89/原理2.jpg" alt="原理2.jpg"></p>
+<p><a href="https://www.cnblogs.com/pinard/p/5976811.html" target="_blank" rel="noopener">最小二乘原理</a></p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>代码实现没特别难度，但需要强调的是对运行速度优化后，运行时间减小了几十倍。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>采用的图像是：</p>
+<p><img src="/2020/03/23/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89/HFColor.jpg" alt="HFColor.jpg"></p>
+<p>不同Laplacian核的尺寸的高斯拟合实验结果是：</p>
+<p>size = 3</p>
+<p><img src="/2020/03/23/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89/size3.jpg" alt="size3.jpg"></p>
+<p>size = 5</p>
+<p><img src="/2020/03/23/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89/size5.jpg" alt="size5.jpg"></p>
+<p>size = 9</p>
+<p><img src="/2020/03/23/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89/size9.jpg" alt="size9.jpg"></p>
+<p>size = 15</p>
+<p><img src="/2020/03/23/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89/size15.jpg" alt="size15.jpg"></p>
+<p>size = 27</p>
+<p><img src="/2020/03/23/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89/size27.jpg" alt="size27.jpg"></p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ul>
+<li>高度影响模糊程度，也就是清晰度。</li>
+<li>高度剧烈变化的区域适合用小尺寸的清晰度评价算子；高度平坦变化的区域适合用大尺寸的清晰度评价算子。<ul>
+<li>若高度剧烈变化的区域使用了大尺寸算子，sigma会过大，数据接近。</li>
+<li>高度平坦的区域使用了小尺寸算子，sigma平方会过为负数，数据不满足高斯分布。</li>
+</ul>
+</li>
+</ul>
+<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><ul>
+<li>同一高度上不同纹理对清晰程度的判断是否有影响？</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Somehow0221
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://somehow0221.github.io/2020/03/23/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89/" title="单目三维成像（高斯拟合）">https://somehow0221.github.io/2020/03/23/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/03/23/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E4%BC%97%E6%95%B0%E6%BB%A4%E6%B3%A2%EF%BC%89/" rel="next" title="单目三维成像（众数滤波）">
+                  <i class="fa fa-chevron-left"></i> 单目三维成像（众数滤波）
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#采用Laplacian算子"><span class="nav-number">1.</span> <span class="nav-text">采用Laplacian算子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高斯拟合"><span class="nav-number">2.</span> <span class="nav-text">高斯拟合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验"><span class="nav-number">4.</span> <span class="nav-text">实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">5.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#疑问"><span class="nav-number">6.</span> <span class="nav-text">疑问</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Somehow0221"
+      src="/images/this.jpg">
+  <p class="site-author-name" itemprop="name">Somehow0221</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/shangminghao0221@gmail.com" title="E-Mail → shangminghao0221@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Somehow0221</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">37k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:01</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shangminghao0221.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "https://somehow0221.github.io/2020/03/23/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E9%AB%98%E6%96%AF%E6%8B%9F%E5%90%88%EF%BC%89/",
+            identifier: "2020/03/23/单目三维成像（高斯拟合）/",
+            title: "单目三维成像（高斯拟合）"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shangminghao0221.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"live2d-widget-model-haru_2"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
