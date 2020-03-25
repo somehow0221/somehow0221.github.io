@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Somehow's blog" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"flat"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="按照师兄的要求，测试高斯拟合得到连续depth map的方法在平坦区域的表现，探寻平坦区域纹理对depth map结果的影响，并与之前的离散depth map算法以及Helicon Focus软件结果进行对照。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单目三维成像（实验2）">
+<meta property="og:url" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;index.html">
+<meta property="og:site_name" content="Somehow&#39;s blog">
+<meta property="og:description" content="按照师兄的要求，测试高斯拟合得到连续depth map的方法在平坦区域的表现，探寻平坦区域纹理对depth map结果的影响，并与之前的离散depth map算法以及Helicon Focus软件结果进行对照。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;001.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;002.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;003.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wuwenli_size3.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wuwenli_size31.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wuwenli_size3_31.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wuwenli_oldMethod_size3.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wuwenli_oldMethod_size31.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wuwenli_HF.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wenli_001.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wenli_002.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wenli_003.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wenli_size3.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wenli_size31.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wenli_size3_31.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wenli_oldMethod_size3.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wenli_oldMethod_size31.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wenli_HF.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wenli_newMethod_3.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wenli_newMethod_31.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;wenli_newMethod_3_31.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;depth.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;3d_newMethod.jpg">
+<meta property="og:updated_time" content="2020-03-25T13:33:33.785Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;somehow0221.github.io&#x2F;2020&#x2F;03&#x2F;25&#x2F;%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89&#x2F;001.jpg">
+
+<link rel="canonical" href="https://somehow0221.github.io/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>单目三维成像（实验2） | Somehow's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Somehow's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://somehow0221.github.io/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/this.jpg">
+      <meta itemprop="name" content="Somehow0221">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Somehow's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          单目三维成像（实验2）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-25 19:49:12 / 修改时间：21:33:33" itemprop="dateCreated datePublished" datetime="2020-03-25T19:49:12+08:00">2020-03-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">单目三维成像</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/25/单目三维成像（实验2）/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>630</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>按照师兄的要求，测试高斯拟合得到连续depth map的方法在平坦区域的表现，探寻平坦区域纹理对depth map结果的影响，并与之前的离散depth map算法以及Helicon Focus软件结果进行对照。<a id="more"></a></p>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><h3 id="无纹理"><a href="#无纹理" class="headerlink" title="无纹理"></a>无纹理</h3><h4 id="拍摄图像"><a href="#拍摄图像" class="headerlink" title="拍摄图像"></a>拍摄图像</h4><p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/001.jpg" alt="001.jpg"></p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/002.jpg" alt="002.jpg"></p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/003.jpg" alt="003.jpg"></p>
+<h4 id="高斯拟合结果"><a href="#高斯拟合结果" class="headerlink" title="高斯拟合结果"></a>高斯拟合结果</h4><p>size  = 3:</p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wuwenli_size3.jpg" alt="wuwenli_size3.jpg"></p>
+<p>size  = 31:</p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wuwenli_size31.jpg" alt="wuwenli_size31.jpg"></p>
+<p>size  = 3_31:</p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wuwenli_size3_31.jpg" alt="wuwenli_size3_31.jpg"></p>
+<h4 id="原方法结果"><a href="#原方法结果" class="headerlink" title="原方法结果"></a>原方法结果</h4><p>size = 3:</p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wuwenli_oldMethod_size3.jpg" alt="wuwenli_oldMethod_size3.jpg"></p>
+<p>size = 31:</p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wuwenli_oldMethod_size31.jpg" alt="wuwenli_oldMethod_size31.jpg"></p>
+<h4 id="Helicon-Focus结果"><a href="#Helicon-Focus结果" class="headerlink" title="Helicon Focus结果"></a>Helicon Focus结果</h4><p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wuwenli_HF.jpg" alt="wuwenli_HF.jpg"></p>
+<h3 id="有纹理"><a href="#有纹理" class="headerlink" title="有纹理"></a>有纹理</h3><h4 id="拍摄图像-1"><a href="#拍摄图像-1" class="headerlink" title="拍摄图像"></a>拍摄图像</h4><p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wenli_001.jpg" alt="wenli_001.jpg"></p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wenli_002.jpg" alt="wenli_002.jpg"></p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wenli_003.jpg" alt="wenli_003.jpg"></p>
+<h4 id="高斯拟合结果-1"><a href="#高斯拟合结果-1" class="headerlink" title="高斯拟合结果"></a>高斯拟合结果</h4><p>size  = 3:</p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wenli_size3.jpg" alt="wenli_size3.jpg"></p>
+<p>size  = 31:</p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wenli_size31.jpg" alt="wenli_size31.jpg"></p>
+<p>size  = 3_31:</p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wenli_size3_31.jpg" alt="wenli_size3_31.jpg"></p>
+<h4 id="原方法结果-1"><a href="#原方法结果-1" class="headerlink" title="原方法结果"></a>原方法结果</h4><p>size = 3:</p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wenli_oldMethod_size3.jpg" alt="wenli_oldMethod_size3.jpg"></p>
+<p>size = 31:</p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wenli_oldMethod_size31.jpg" alt="wenli_oldMethod_size31.jpg"></p>
+<h4 id="Helicon-Focus结果-1"><a href="#Helicon-Focus结果-1" class="headerlink" title="Helicon Focus结果"></a>Helicon Focus结果</h4><p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wenli_HF.jpg" alt="wenli_HF.jpg"></p>
+<h2 id="实验结论"><a href="#实验结论" class="headerlink" title="实验结论"></a>实验结论</h2><p>可以得到的结论是：</p>
+<ul>
+<li>首先在平台区域，有纹理能够更好地恢复深度。</li>
+<li>HF结果是<strong>相反</strong>的，由于输入顺序的问题。</li>
+<li>原<strong>离散</strong>方法表现较好，结果与HF结果相似。</li>
+<li>高斯拟合的<strong>连续</strong>算法表现不好推测原因可能是：<ul>
+<li>数据只有三组，插值极容易出错。</li>
+<li>没有向原方法一样加入blur步骤，<strong>sum the degree of focus in the neighbourhood</strong>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="修改高斯拟合算法"><a href="#修改高斯拟合算法" class="headerlink" title="修改高斯拟合算法"></a>修改高斯拟合算法</h2><p>增加blur步骤</p>
+<h2 id="实验结果-1"><a href="#实验结果-1" class="headerlink" title="实验结果"></a>实验结果</h2><h3 id="有纹理-1"><a href="#有纹理-1" class="headerlink" title="有纹理"></a>有纹理</h3><p>size = 3:</p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wenli_newMethod_3.jpg" alt="wenli_newMethod_3.jpg"></p>
+<p>size = 31:</p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wenli_newMethod_31.jpg" alt="wenli_newMethod_31.jpg"></p>
+<p>size = 3_31:</p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/wenli_newMethod_3_31.jpg" alt="wenli_newMethod_3_31.jpg"></p>
+<h3 id="花瓣"><a href="#花瓣" class="headerlink" title="花瓣"></a>花瓣</h3><p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/depth.jpg" alt="depth.jpg"></p>
+<p><img src="/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/3d_newMethod.jpg" alt="3d_newMethod.jpg"></p>
+<h3 id="实验结论-1"><a href="#实验结论-1" class="headerlink" title="实验结论"></a>实验结论</h3><p>可以看到修改后的算法结合了：</p>
+<ul>
+<li>sum modified Laplacian</li>
+<li>gaussian fitting</li>
+<li><p>adaptive size</p>
+</li>
+<li><p>上述3_31效果不如单纯的size = 31的原因还是由于插值数据太少，难以准确插值。</p>
+</li>
+<li>但是加入sum modified Laplacian步骤后，重建花瓣的效果发生了改变：<ul>
+<li>平坦的区域变好了</li>
+<li>高度精密变化的区域变差了</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Somehow0221
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://somehow0221.github.io/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/" title="单目三维成像（实验2）">https://somehow0221.github.io/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/03/24/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E8%87%AA%E9%80%82%E5%BA%94%E5%B0%BA%E5%AF%B8%EF%BC%89/" rel="next" title="单目三维成像（自适应尺寸）">
+                  <i class="fa fa-chevron-left"></i> 单目三维成像（自适应尺寸）
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实验结果"><span class="nav-number">1.</span> <span class="nav-text">实验结果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#无纹理"><span class="nav-number">1.1.</span> <span class="nav-text">无纹理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#拍摄图像"><span class="nav-number">1.1.1.</span> <span class="nav-text">拍摄图像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高斯拟合结果"><span class="nav-number">1.1.2.</span> <span class="nav-text">高斯拟合结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原方法结果"><span class="nav-number">1.1.3.</span> <span class="nav-text">原方法结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Helicon-Focus结果"><span class="nav-number">1.1.4.</span> <span class="nav-text">Helicon Focus结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有纹理"><span class="nav-number">1.2.</span> <span class="nav-text">有纹理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#拍摄图像-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">拍摄图像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高斯拟合结果-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">高斯拟合结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原方法结果-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">原方法结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Helicon-Focus结果-1"><span class="nav-number">1.2.4.</span> <span class="nav-text">Helicon Focus结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验结论"><span class="nav-number">2.</span> <span class="nav-text">实验结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改高斯拟合算法"><span class="nav-number">3.</span> <span class="nav-text">修改高斯拟合算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验结果-1"><span class="nav-number">4.</span> <span class="nav-text">实验结果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#有纹理-1"><span class="nav-number">4.1.</span> <span class="nav-text">有纹理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#花瓣"><span class="nav-number">4.2.</span> <span class="nav-text">花瓣</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验结论-1"><span class="nav-number">4.3.</span> <span class="nav-text">实验结论</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Somehow0221"
+      src="/images/this.jpg">
+  <p class="site-author-name" itemprop="name">Somehow0221</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/shangminghao0221@gmail.com" title="E-Mail → shangminghao0221@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Somehow0221</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">38k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:04</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shangminghao0221.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "https://somehow0221.github.io/2020/03/25/%E5%8D%95%E7%9B%AE%E4%B8%89%E7%BB%B4%E6%88%90%E5%83%8F%EF%BC%88%E5%AE%9E%E9%AA%8C2%EF%BC%89/",
+            identifier: "2020/03/25/单目三维成像（实验2）/",
+            title: "单目三维成像（实验2）"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shangminghao0221.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"live2d-widget-model-haru_2"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
