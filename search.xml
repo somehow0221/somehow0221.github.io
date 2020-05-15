@@ -1,6 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>C_plus_plus学习（基础语法）</title>
+    <url>/2020/05/14/C-plus-plus%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="C-简介"><a href="#C-简介" class="headerlink" title="C++简介"></a>C++简介</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>C++ 是一种静态类型的、编译式的、通用的、大小写敏感的、不规则的编程语言，支持过程化编程、面向对象编程和泛型编程。</p><h2 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h2><ul>
+<li>核心语言（变量、数据类型、常量）</li>
+<li>C++标准库（大量函数，操作文件、字符串）</li>
+<li>STL（操作数据结构）</li>
+</ul><h2 id="面向对象开发四大特性"><a href="#面向对象开发四大特性" class="headerlink" title="面向对象开发四大特性"></a>面向对象开发四大特性</h2><ul>
+<li>封装</li>
+<li>抽象</li>
+<li>集成</li>
+<li>多态</li>
+</ul><h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><h2 id="基本的内置类型"><a href="#基本的内置类型" class="headerlink" title="基本的内置类型"></a>基本的内置类型</h2><a id="more"></a>
+
+
+<p><img src="/2020/05/14/C-plus-plus%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%EF%BC%89/数据类型.png" alt="数据类型.png"><br><img src="/2020/05/14/C-plus-plus%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%EF%BC%89/数据类型2.png" alt="数据类型2.png"></p>
+<p><img src="/2020/05/14/C-plus-plus%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%EF%BC%89/数据类型3.png" alt="数据类型3.png" style="zoom: 67%;"></p>
+<h3 id="typedef声明"><a href="#typedef声明" class="headerlink" title="typedef声明"></a>typedef声明</h3><p>您可以使用 typedef 为一个已有的类型取一个新的名字。</p>
+<p><code>typedef double newname</code></p>
+<h2 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h2><p><code>enum 枚举名{red, green = 5, blue} rgb</code>，默认red = 1, green = 5, blue = 6。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>所有的数组都是由连续的内存位置组成。最低的地址对应第一个元素，最高的地址对应最后一个元素。</p>
+<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><p><code>double example[10];</code></p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p><code>double balance[5] = {1000.0, 2.0, 3.4, 7.0, 50.0};</code></p>
+<p><code>double balance[] = {1000.0, 2.0, 3.4, 7.0, 50.0};</code></p>
+<h3 id="传参"><a href="#传参" class="headerlink" title="传参"></a>传参</h3><ul>
+<li>您可以通过指定不带索引的数组名称来生成一个指向数组中第一个元素的指针。</li>
+<li>您可以通过指定不带索引的数组名称来给函数传递一个指向数组的指针。</li>
+<li>C++ 允许从函数返回数组。<strong>？是不是也是返回数组名即可</strong></li>
+</ul>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><h3 id="C风格"><a href="#C风格" class="headerlink" title="C风格"></a>C风格</h3><p><code>char greeting[6] = {&#39;H&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;, &#39;\0&#39;};</code></p>
+<p><code>char greeting[] = &quot;Hello&quot;;</code></p>
+<p>其实，您不需要把 null 字符放在字符串常量的末尾。C++ 编译器会在初始化数组时，自动把 ‘\0’ 放在字符串的末尾。</p>
+<p><img src="/2020/05/14/C-plus-plus%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%EF%BC%89/数据类型9.png" alt="数据类型9.png"></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">char</span> str1[<span class="number">11</span>] = <span class="string">"Hello"</span>;</span><br><span class="line">   <span class="keyword">char</span> str2[<span class="number">11</span>] = <span class="string">"World"</span>;</span><br><span class="line">   <span class="keyword">char</span> str3[<span class="number">11</span>];</span><br><span class="line">   <span class="keyword">int</span>  len ;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// 复制 str1 到 str3</span></span><br><span class="line">   <span class="built_in">strcpy</span>( str3, str1);</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; <span class="string">"strcpy( str3, str1) : "</span> &lt;&lt; str3 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// 连接 str1 和 str2</span></span><br><span class="line">   <span class="built_in">strcat</span>( str1, str2);</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; <span class="string">"strcat( str1, str2): "</span> &lt;&lt; str1 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// 连接后，str1 的总长度</span></span><br><span class="line">   len = <span class="built_in">strlen</span>(str1);</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; <span class="string">"strlen(str1) : "</span> &lt;&lt; len &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="C-风格"><a href="#C-风格" class="headerlink" title="C++风格"></a>C++风格</h3><p>C++ 标准库提供了 string 类类型，支持上述所有的操作，另外还增加了其他更多的功能。</p>
+<p><strong>注意头文件的不同</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="built_in">string</span> str1 = <span class="string">"Hello"</span>;</span><br><span class="line">   <span class="built_in">string</span> str2 = <span class="string">"World"</span>;</span><br><span class="line">   <span class="built_in">string</span> str3;</span><br><span class="line">   <span class="keyword">int</span>  len ;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// 复制 str1 到 str3</span></span><br><span class="line">   str3 = str1;</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; <span class="string">"str3 : "</span> &lt;&lt; str3 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// 连接 str1 和 str2</span></span><br><span class="line">   str3 = str1 + str2;</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; <span class="string">"str1 + str2 : "</span> &lt;&lt; str3 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// 连接后，str3 的总长度</span></span><br><span class="line">   len = str3.<span class="built_in">size</span>();</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; <span class="string">"str3.size() :  "</span> &lt;&lt; len &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><ul>
+<li>空指针：表示不明确指向内存，但指向特定的内存位置。</li>
+<li>指针和数组的区别：<ul>
+<li>作为形参，指针和数组一样。</li>
+<li>作为返回值，指针和数组一样。</li>
+<li>不同的是，数组名表示数组的首地址，可以<code>++</code>、<code>--</code>、或者取值运算<code>*</code>获得地址里的值。这和指向数组的指针一样，但是不能讲数组名作为左值来修改它的地址。</li>
+</ul>
+</li>
+<li>指针数组。</li>
+<li>指向指针的指针。</li>
+</ul>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><ul>
+<li>引用和指针的区别：<ul>
+<li>不存在空引用，引用必须初始化。</li>
+<li>引用初始化后，不可更改。</li>
+</ul>
+</li>
+<li>引用作为参数。</li>
+<li>引用作为返回值。 </li>
+</ul>
+<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>int a; int b = 0;//a、b分配了内存，b获得了初值。</p>
+<h2 id="声明-1"><a href="#声明-1" class="headerlink" title="声明"></a>声明</h2><p>extern int a;//声明a是一个已经定义了的外部变量，甚至a可以是不同文件中定义的。</p>
+<p>注意这个外部变量和本地的局部变量的划分。</p>
+<h2 id="左值和右值"><a href="#左值和右值" class="headerlink" title="左值和右值"></a>左值和右值</h2><p>左值：指向内存位置的表达式成为左值，可以在赋值号的左边或右边。<br>右值：指的是存储在内存中的具体数值，是不能被赋值的表达式，只能赋值别人。</p>
+<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><ul>
+<li>局部变量：在函数或者代码块内声明的变量。</li>
+<li>形参：函数参数定义中声明的变量。</li>
+<li>全局变量：函数外部声明的变量。</li>
+</ul>
+<p>全局变量在整个程序周期都是有效的，可以被任意函数访问。注意全局和局部重名情况的处理。</p>
+<p>全局变量会默认初始化，局部变量不会。</p>
+<p><img src="/2020/05/14/C-plus-plus%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%EF%BC%89/数据类型4.png" alt="数据类型4.png"></p>
+<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><ul>
+<li>signed</li>
+<li>unsigned</li>
+<li>long</li>
+<li>short</li>
+</ul>
+<h2 id="类型限定符"><a href="#类型限定符" class="headerlink" title="类型限定符"></a>类型限定符</h2><p><img src="/2020/05/14/C-plus-plus%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%EF%BC%89/数据类型6.png" alt="数据类型6.png"></p>
+<h1 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h1><p>常量是不会被改变的量，可以是任何的基础类型。</p>
+<h2 id="整数常量"><a href="#整数常量" class="headerlink" title="整数常量"></a>整数常量</h2><p>可以是十进制、八进制、十六进制。</p>
+<p>整数常量也可以带一个后缀，后缀是 U 和 L 的组合，U 表示无符号整数（unsigned），L 表示长整数（long）。后缀可以是大写，也可以是小写，U 和 L 的顺序任意。</p>
+<h2 id="浮点常量"><a href="#浮点常量" class="headerlink" title="浮点常量"></a>浮点常量</h2><p>有小数形式和指数形式。</p>
+<h2 id="布尔常量"><a href="#布尔常量" class="headerlink" title="布尔常量"></a>布尔常量</h2><p>略。</p>
+<h2 id="字符常量"><a href="#字符常量" class="headerlink" title="字符常量"></a>字符常量</h2><p>字符常量是括在单引号中。如果常量以 L（仅当大写时）开头，则表示它是一个宽字符常量（例如 L’x’），此时它必须存储在 wchar_t 类型的变量中。否则，它就是一个窄字符常量（例如 ‘x’），此时它可以存储在 char 类型的简单变量中。</p>
+<p>字符常量可以是一个普通的字符（例如 ‘x’）、一个转义序列（例如 ‘\t’），或一个通用的字符（例如 ‘\u02C0’）。</p>
+<p>在 C++ 中，有一些特定的字符，当它们前面有反斜杠时，它们就具有特殊的含义，被用来表示如换行符（\n）或制表符（\t）等。下表列出了一些这样的转义序列码：</p>
+<p><img src="/2020/05/14/C-plus-plus%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%EF%BC%89/数据类型5.png" alt="数据类型5.png"></p>
+<h2 id="字符串常量"><a href="#字符串常量" class="headerlink" title="字符串常量"></a>字符串常量</h2><p>分行的问题</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> test0[<span class="number">11</span>] = <span class="string">"who i am?"</span>;</span><br><span class="line"><span class="keyword">char</span> test1[<span class="number">11</span>] = <span class="string">"who i\</span></span><br><span class="line"><span class="string">am?"</span>;</span><br><span class="line"><span class="keyword">char</span> test2[<span class="number">11</span>] = <span class="string">"who i"</span>   <span class="string">"am?"</span>;</span><br><span class="line"><span class="keyword">char</span> test3[<span class="number">11</span>] = <span class="string">"who i"</span>   </span><br><span class="line">				 <span class="string">"am?"</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="定义常量"><a href="#定义常量" class="headerlink" title="定义常量"></a>定义常量</h2><h1 id="define-YEAR-2020"><a href="#define-YEAR-2020" class="headerlink" title="define YEAR 2020"></a>define YEAR 2020</h1><h1 id="define-NEWLINE-‘-n’"><a href="#define-NEWLINE-‘-n’" class="headerlink" title="define NEWLINE ‘\n’"></a>define NEWLINE ‘\n’</h1><p>const int year = 2020;//const 常量一定得初始化。</p>
+<h1 id="存储类"><a href="#存储类" class="headerlink" title="存储类"></a>存储类</h1><h2 id="auto"><a href="#auto" class="headerlink" title="auto"></a>auto</h2><p>自 C++ 11 以来，auto 关键字用于两种情况：声明变量时根据初始化表达式自动推断该变量的类型、声明函数时函数返回值的占位符。</p>
+<h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><ul>
+<li>局部变量：在程序的生命周期内保持局部变量的存在，而不需要在每次它进入和离开作用域时进行创建和销毁。因此，使用 static 修饰局部变量可以在函数调用之间保持局部变量的值。</li>
+<li>全局变量：当 static 修饰全局变量时，会使变量的作用域限制在声明它的文件内。</li>
+<li>类成员变量：会导致仅有一个该成员的副本被类的所有对象共享。</li>
+</ul>
+<h2 id="extern"><a href="#extern" class="headerlink" title="extern"></a>extern</h2><p>当您有多个文件且定义了一个可以在其他文件中使用的全局变量或函数时，可以在其他文件中使用 extern 来得到已定义的变量或函数的引用。可以这么理解，extern 是用来在另一个文件中声明一个全局变量或函数。</p>
+<h2 id="mutable"><a href="#mutable" class="headerlink" title="mutable"></a>mutable</h2><h2 id="thread-local"><a href="#thread-local" class="headerlink" title="thread_local"></a>thread_local</h2><h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><h2 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h2><p>p^q//亦或就是不进位的加法。</p>
+<h2 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h2><p><code>&gt;&gt;=</code> <code>&lt;&lt;=</code></p>
+<h2 id="杂项运算符"><a href="#杂项运算符" class="headerlink" title="杂项运算符"></a>杂项运算符</h2><ul>
+<li>sizeof</li>
+<li>?</li>
+<li>.或者-&gt;</li>
+<li>Cast</li>
+<li>&amp;</li>
+<li>*</li>
+</ul>
+<h2 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h2><p>运算-&gt;逻辑-&gt;条件-&gt;赋值</p>
+<p><img src="/2020/05/14/C-plus-plus%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%EF%BC%89/数据类型7.png" alt="数据类型7.png"></p>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="循环判断"><a href="#循环判断" class="headerlink" title="循环判断"></a>循环判断</h2><p><code>?</code>运算符。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span>(expression)&#123;</span><br><span class="line">    <span class="keyword">case</span> constant-expression  :</span><br><span class="line">       statement(s);</span><br><span class="line">       <span class="keyword">break</span>; <span class="comment">// 可选的</span></span><br><span class="line">    <span class="keyword">case</span> constant-expression  :</span><br><span class="line">       statement(s);</span><br><span class="line">       <span class="keyword">break</span>; <span class="comment">// 可选的</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 您可以有任意数量的 case 语句</span></span><br><span class="line">    <span class="keyword">default</span> : <span class="comment">// 可选的</span></span><br><span class="line">       statement(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="传参方式"><a href="#传参方式" class="headerlink" title="传参方式"></a>传参方式</h2><ul>
+<li>传值</li>
+<li>指针</li>
+<li>引用</li>
+</ul>
+<h2 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h2><h2 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h2><p>需要引用数学文件。</p>
+<p><img src="/2020/05/14/C-plus-plus%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%EF%BC%89/数据类型8.png" alt="数据类型8.png"></p>
+<h2 id="随机数"><a href="#随机数" class="headerlink" title="随机数"></a>随机数</h2><ul>
+<li>种子设置</li>
+<li>头文件cstdlib<ul>
+<li>还有一些其他的头文件：cstdio、ctime、cmath、cstring…… </li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctime&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> i,j;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// 设置种子</span></span><br><span class="line">   srand( (<span class="keyword">unsigned</span>)time( <span class="literal">NULL</span> ) );</span><br><span class="line"> </span><br><span class="line">   <span class="comment">/* 生成 10 个随机数 */</span></span><br><span class="line">   <span class="keyword">for</span>( i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ )</span><br><span class="line">   &#123;</span><br><span class="line">      <span class="comment">// 生成实际的随机数</span></span><br><span class="line">      j= rand();</span><br><span class="line">      <span class="built_in">cout</span> &lt;&lt;<span class="string">"随机数： "</span> &lt;&lt; j &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="日期-时间"><a href="#日期-时间" class="headerlink" title="日期/时间"></a>日期/时间</h1><p>C++继承了C的时间函数，需要包含ctime文件。</p>
+<h1 id="基础的输入输出"><a href="#基础的输入输出" class="headerlink" title="基础的输入输出"></a>基础的输入输出</h1><ul>
+<li>iostream：定义了cin、cout、cerr、clog对象。</li>
+<li>iomanip：</li>
+<li>fstream：文件流</li>
+</ul>
+<h1 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h1><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Books</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">   <span class="keyword">char</span>  title[<span class="number">50</span>];</span><br><span class="line">   <span class="keyword">char</span>  author[<span class="number">50</span>];</span><br><span class="line">   <span class="keyword">char</span>  subject[<span class="number">100</span>];</span><br><span class="line">   <span class="keyword">int</span>   book_id;</span><br><span class="line">   Books(<span class="keyword">int</span> number)&#123;book_id = number;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Books</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">   <span class="keyword">char</span>  title[<span class="number">50</span>];</span><br><span class="line">   <span class="keyword">char</span>  author[<span class="number">50</span>];</span><br><span class="line">   <span class="keyword">char</span>  subject[<span class="number">100</span>];</span><br><span class="line">   <span class="keyword">int</span>   book_id;</span><br><span class="line">&#125; thebook;</span><br></pre></td></tr></table></figure>
+<p>指向结构体的指针。</p>
+<p>结构体构造函数。</p>
+<p>可以使用 typedef 关键字来定义非结构类型。</p>
+]]></content>
+      <categories>
+        <category>C++学习</category>
+      </categories>
+  </entry>
+  <entry>
     <title>番茄助手破解</title>
     <url>/2020/04/02/%E7%95%AA%E8%8C%84%E5%8A%A9%E6%89%8B%E7%A0%B4%E8%A7%A3/</url>
     <content><![CDATA[<p>VS之前下载了番茄助手扩展程序，配色和自动提示很好，试用期结束了，在网上找到了破解补丁进行破解。<a id="more"></a></p>
